@@ -1,1 +1,1 @@
-# Veb-project
+# Web-project
