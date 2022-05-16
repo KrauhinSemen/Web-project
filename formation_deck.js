@@ -1,0 +1,21 @@
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+}
+
+let cards = ["6-k", "7-k", "8-k", "9-k", "10-k", "11-k", "12-k", "13-k", "14-k",
+    "6-b", "7-b", "8-b", "9-b", "10-b", "11-b", "12-b", "13-b", "14-b",
+    "6-p", "7-p", "8-p", "9-p", "10-p", "11-p", "12-p", "13-p", "14-p",
+    "6-c", "7-c", "8-c", "9-c", "10-c", "11-c", "12-c", "13-c", "14-c"];
+
+
+shuffle(cards);
+
+let trump_card = document.querySelector('img.trump_card');
+let trump_fraction = cards[12].split('-')[1]
+trump_card.src =`images/${cards[12]}.png`
+trump_card = trump_card.style.transform = 'rotate(-90deg)';
+
+document.querySelector('p.deck_info').textContent = cards.join(' ')
+
+console.log(cards.join(' '))
+

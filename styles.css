@@ -1,0 +1,228 @@
+html {
+    background-image: url(images/background.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.button {
+    background-color: rgb(0, 255, 0);
+    height: 50px;
+    width: 150px;
+    font-weight: bold;
+    position: absolute;
+    top: 85%;
+    right: 80px;
+}
+
+.deck_info {
+    opacity: 0;
+}
+
+.enemy_info {
+    opacity: 0;
+}
+
+.player_move {
+    opacity: 0;
+}
+
+.deck {
+    position: absolute;
+    top: 40%;
+    margin: 8px;
+    z-index: 2;
+}
+
+.trump_card {
+    position: absolute;
+    top: 40%;
+    left: 36px;
+    margin: 8px;
+    z-index: 1;
+}
+
+.player_card_1 {
+    position: absolute;
+    top: 75%;
+    right: 70%;
+    opacity: 0;
+}
+
+.player_card_2 {
+    position: absolute;
+    top: 75%;
+    right: 60%;
+    opacity: 0;
+}
+
+.player_card_3 {
+    position: absolute;
+    top: 75%;
+    right: 50%;
+    opacity: 0;
+}
+
+.player_card_4 {
+    position: absolute;
+    top: 75%;
+    right: 40%;
+    opacity: 0;
+}
+
+.player_card_5 {
+    position: absolute;
+    top: 75%;
+    right: 30%;
+    opacity: 0;
+}
+
+.player_card_6 {
+    position: absolute;
+    top: 75%;
+    right: 20%;
+    opacity: 0;
+}
+
+.enemy_card_1 {
+    position: absolute;
+    right: 70%;
+    opacity: 0;
+}
+
+.enemy_card_2 {
+    position: absolute;
+    right: 60%;
+    opacity: 0;
+}
+
+.enemy_card_3 {
+    position: absolute;
+    right: 50%;
+    opacity: 0;
+}
+
+.enemy_card_4 {
+    position: absolute;
+    right: 40%;
+    opacity: 0;
+}
+
+.enemy_card_5 {
+    position: absolute;
+    right: 30%;
+    opacity: 0;
+}
+
+.enemy_card_6 {
+    position: absolute;
+    right: 20%;
+    opacity: 0;
+}
+
+.field_card_1 {
+    position: absolute;
+    right: 70%;
+    top: 40%;
+    opacity: 0;
+    z-index: 2;
+}
+
+.field_card_2 {
+    position: absolute;
+    right: 60%;
+    top: 40%;
+    opacity: 0;
+    z-index: 2;
+}
+
+.field_card_3 {
+    position: absolute;
+    right: 50%;
+    top: 40%;
+    opacity: 0;
+    z-index: 2;
+}
+
+.field_card_4 {
+    position: absolute;
+    right: 40%;
+    top: 40%;
+    opacity: 0;
+    z-index: 2;
+}
+
+.field_card_5 {
+    position: absolute;
+    right: 30%;
+    top: 40%;
+    opacity: 0;
+    z-index: 2;
+}
+
+.field_card_6 {
+    position: absolute;
+    right: 20%;
+    top: 40%;
+    opacity: 0;
+    z-index: 2;
+}
+
+.field_card_11 {
+    position: absolute;
+    right: 72%;
+    top: 45%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.field_card_21 {
+    position: absolute;
+    right: 62%;
+    top: 45%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.field_card_31 {
+    position: absolute;
+    right: 52%;
+    top: 45%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.field_card_41 {
+    position: absolute;
+    right: 42%;
+    top: 45%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.field_card_51 {
+    position: absolute;
+    right: 32%;
+    top: 45%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.field_card_61 {
+    position: absolute;
+    right: 22%;
+    top: 45%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.bito_card {
+    position: absolute;
+    right: 8px;
+    top: 40%;
+    opacity: 0;
+}
