@@ -26,4 +26,4 @@ for (let i = 1; i < 7; i++) {
 
 enemy_info.textContent = enemy_info_split.join(' ');
 
-console.log(enemy_info)
+console.log(`Карты противника: |${enemy_info.textContent}|`)

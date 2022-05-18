@@ -17,5 +17,4 @@ trump_card = trump_card.style.transform = 'rotate(-90deg)';
 
 document.querySelector('p.deck_info').textContent = cards.join(' ')
 
-console.log(cards.join(' '))
-
+console.log(`Расположение карт : |${cards.join(' ')}|`)

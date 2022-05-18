@@ -1,5 +1,6 @@
 let card_on_field = []; // Можно попробовать менять элементы, когда их бьют карты противника !!!
 let card_on_field_2_level = [] // Это карты, которые покрывают другие
+let table_current = [];
 
 function move_player(event) {
     let id = event.target.id;
@@ -88,26 +89,34 @@ function can_beat_card(card_from_above, card_on_field) {
     }
 }
 
-function end_turn() {
+function clear_table() {
 
+}
+
+function new_cards_enemy_from_table() {
+
+}
+
+function end_turn() {
+    // Получить список карт соперника
     let enemy_info_split_current = enemy_info_split;
-    let table_current = [];
-    let usage_enemy_card = []
-    let prepare_answer = []  // Здесь будут храниться ответы из следующего for'а, 
-    // чтобы при нахождении карты, которую нельзя побить, мы могли сразу перейти к методу взятия карт противником
-    was_enemy_pass = false;
+
+    // Смог ли покрыться
+    let enemy_pass_bad = false;
+    let enemy_pass_good = true;
 
     card_on_field.forEach(function (card_field) {  // Сопоставляет каждой карте на поле карту противника, которую  может побить
-        if (!was_enemy_pass) {
+
+        if (!table_current.includes(card_field)) {
+
+            enemy_pass_good = false;
             let answer = [];
-            let result = [' ', ' ', true, 20];
+            let result = [' ', ' ', true, 20]; // [своя карта, вражеская, был ли козырь, разница]
 
             enemy_info_split_current.forEach(function (card_enemy) {
 
-                if (!usage_enemy_card.includes(card_enemy)) {
+                if (!table_current.includes(card_enemy)) { // Убираем задействованные карты
                     let false_or_difference = can_beat_card(card_enemy, card_field);
-
-                    console.log(false_or_difference);
 
                     if (false_or_difference[0]) {
 
@@ -120,60 +129,58 @@ function end_turn() {
                     } else if (false_or_difference[1]) {
                         answer = [card_field, card_enemy, false, false_or_difference[1]];
 
-                        if (result[3] > answer[3]) {
+                        if (result[3] > answer[3] || result[2]) {
                             result = answer;
                         }
                     }
                 }
             })
 
-            prepare_answer[prepare_answer.length] = result
-            usage_enemy_card[usage_enemy_card] = result[1]
-            //  enemy_info_split_current.splice(enemy_info_split_current.indexOf(result[1]), 1);
-            //  console.log(enemy_info_split_current);
+            console.log(`Результат сравнения: |${result}|`);
 
-            //table_current.push([result[0], result[1]]);
+            card_on_field_2_level.push(result[1]); // обновляем карты 2 уровня
+
+            table_current.push(result[0], result[1]); // обновляем таблицу задействованных карт
 
             if (result[1] === ' ') {
-                enemy_pass();
-                was_enemy_pass = true;
+                enemy_pass_bad = true;
             }
         }
     });
 
-    if (was_enemy_pass) return;
-    for (let ans of prepare_answer) {
-        enemy_info_split_current.splice(enemy_info_split_current.indexOf(ans[1]), 1);
-        console.log(enemy_info_split_current);
-        table_current.push([ans[0], ans[1]]);
+    if (enemy_pass_bad){
+        console.log('bad_pass');
+        clear_table();
+        new_cards_enemy_from_table();
+        return;
     }
 
-    console.log(table_current);
-
-    if (table_current.length === card_on_field.length) {
-
-        let i = 1;
-        table_current.forEach(function (cards) {
-
-            let above_card = document.querySelector(`img.field_card_${i}1`);
-            let field_card = document.querySelector(`img.field_card_${i}`);
-
-            above_card.src = `images/${cards[1]}.png`;
-            above_card.style.opacity = '1';
-            above_card.style.zIndex = '2';
-
-            field_card.style.zIndex = '1';
-
-            i = i + 1;
-
-            card_on_field_2_level[card_on_field_2_level.length] = cards[1]
-        })
+    if (enemy_pass_good){
+        console.log('good_pass');
+        clear_table();
+        return;
     }
 
-}
+    console.log(`Карты на поле: |${table_current}|`);
 
-function enemy_pass() {
-    alert("Противник не может ответить")
+    let i = 1;
+    card_on_field_2_level.forEach(function (card) {
+
+        let above_card = document.querySelector(`img.field_card_${i}1`);
+        let field_card = document.querySelector(`img.field_card_${i}`);
+        let enemy_card = document.querySelector(`img.enemy_card_${i}`);
+
+
+        above_card.src = `images/${card}.png`;
+        above_card.style.opacity = '1';
+        above_card.style.zIndex = '2';
+
+        field_card.style.zIndex = '1';
+
+        enemy_card.style.opacity = '0';
+
+        i = i + 1;
+    })
 }
 
 
