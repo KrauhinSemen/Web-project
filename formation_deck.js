@@ -15,6 +15,8 @@ let trump_fraction = cards[12].split('-')[1]
 trump_card.src =`images/${cards[12]}.png`
 trump_card = trump_card.style.transform = 'rotate(-90deg)';
 
+[cards[12], cards[35]]  = [cards[35], cards[12]];
+
 document.querySelector('p.deck_info').textContent = cards.join(' ')
 
 console.log(`Расположение карт : |${cards.join(' ')}|`)

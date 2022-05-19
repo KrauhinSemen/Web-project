@@ -90,11 +90,21 @@ function can_beat_card(card_from_above, card_on_field) {
 }
 
 function clear_table() {
+    for (let i = 1; i < 7; i++) {
+        let card_on_field_1 = document.querySelector(`img.field_card_${i}`);
+        let card_on_field_2 = document.querySelector(`img.field_card_${i}1`);
 
+        card_on_field_1.src = `images/card_reverse.png`;
+        card_on_field_1.style.opacity = '0';
+
+        card_on_field_2.src = `images/card_reverse.png`;
+        card_on_field_2.style.opacity = '0';
+    }
 }
 
 function new_cards_enemy_from_table() {
 
+    // Тебе дописать
 }
 
 function end_turn() {
@@ -148,9 +158,21 @@ function end_turn() {
         }
     });
 
+    // Обновляем список карт в руке
+    card_on_field.forEach(function (card_field) {
+        player_info_split = player_info_split.filter(function(f) { return f !== card_field })
+    })
+
+    card_on_field_2_level.forEach(function (card_field) {
+        enemy_info_split = enemy_info_split.filter(function(f) { return f !== card_field })
+    })
+
+
+    // Смотрим хороший пас или плохой
     if (enemy_pass_bad){
         console.log('bad_pass');
         clear_table();
+        card_distribution();
         new_cards_enemy_from_table();
         return;
     }
@@ -158,6 +180,26 @@ function end_turn() {
     if (enemy_pass_good){
         console.log('good_pass');
         clear_table();
+        card_distribution();
+
+        let no_cards = false;
+
+        while (!no_cards) {
+            let player_card = document.querySelector(`img.player_card_${i}`);
+            let field_card = document.querySelector(`img.field_card_${i}`);
+
+            if (player_card !== null) {
+                player_card.addEventListener('click', move_player);// поменять
+            } else if (field_card !== null) {
+                field_card.addEventListener('click', move_field); // поменять
+            } else {
+                no_cards = true;
+            }
+        }
+
+        let button = document.querySelector("button.button"); // поменять
+        button.addEventListener('click', end_turn) // поменять
+
         return;
     }
 
@@ -192,5 +234,4 @@ for (let i = 1; i < 7; i++) {
 }
 
 let button = document.querySelector("button.button");
-
 button.addEventListener('click', end_turn)
