@@ -1,7 +1,6 @@
 let card_on_field = []; // Можно попробовать менять элементы, когда их бьют карты противника !!!
 let card_on_field_2_level = [] // Это карты, которые покрывают другие
 let table_current = [];
-let current_card = ''; // Для будущего, чтоюы было видно, что выбираешь
 
 function move_player(event) {
     let id = event.target.id;
@@ -219,7 +218,8 @@ function end_turn() {
         let button = document.querySelector("button.button"); // поменять
         button.addEventListener('click', end_turn) // поменять
 
-        grouping_cards()
+        grouping_cards("player_card");
+        grouping_cards("enemy_card");
         return;
     }
 
@@ -245,33 +245,8 @@ function end_turn() {
     })
 }
 
-function grouping_cards() {
-    console.log("group");
-    let count_cards = 0;
-    let i = 1;
-    while (true) {  // Считаем кол-во карт
-        let card = document.querySelector(`img.player_card_${i}`);
-        if (card === null) break;
-        if (card.style.opacity === "1") count_cards += 1;
-        i++;
-    }
-
-    let step = (50 - count_cards) / 2;
-    let current_stage = 70 - step;
-    i = 1
-
-    while (true) {
-        let card = document.querySelector(`img.player_card_${i}`);
-        if (card === null) break;
-        if (card.style.opacity === "1") {
-            card.style.right = `${current_stage}%`;
-            current_stage -= 1;
-        }
-        i++;
-    }
-}
-
-grouping_cards();
+grouping_cards("player_card");
+grouping_cards("enemy_card");
 
 for (let i = 1; i < 7; i++) {
     let player_card = document.querySelector(`img.player_card_${i}`);
