@@ -21,6 +21,7 @@ function card_distribution() {
             player_card.src = `images/${deck_info[index_deck]}.png`;
             player_info_split.push(deck_info[index_deck]);
             player_card.style.opacity = '1';
+            player_card.style.zIndex = '1';
             player_card.id = deck_info[index_deck];
             index_deck++;
         }

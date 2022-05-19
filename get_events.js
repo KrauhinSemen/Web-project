@@ -1,10 +1,13 @@
 let card_on_field = []; // Можно попробовать менять элементы, когда их бьют карты противника !!!
 let card_on_field_2_level = [] // Это карты, которые покрывают другие
 let table_current = [];
+let current_card = ''; // Для будущего, чтоюы было видно, что выбираешь
 
 function move_player(event) {
     let id = event.target.id;
     let numbers_on_table = []
+
+    if (document.querySelector(`img.${event.target.className}`).style.opacity === '0') return; // чтобы не выбирать дважды одну карту
 
     // Нужно добавить то, что карт можно больше выбирать при "подкидывании"
     card_on_field.forEach(function (card) { //Чтобы были только одного ранга карты
@@ -22,7 +25,8 @@ function move_player(event) {
                 field_card.src = event.target.currentSrc;
                 field_card.style.opacity = "1";
                 card_on_field.push(id);
-                document.querySelector(`img.${event.target.className}`).style.opacity = "0";
+                document.querySelector(`img.${event.target.className}`).style.opacity = '0';
+                document.querySelector(`img.${event.target.className}`).style.zIndex = '0';
                 break;
             }
         }
@@ -40,12 +44,13 @@ function move_field(event) {
         if (player_card.style.opacity === "0" || player_card.style.opacity === '') {
             player_card.src = event.target.currentSrc;
             player_card.style.opacity = "1";
+            player_card.style.zIndex = "1"
 
             //  card_on_field.splice(card_on_field.indexOf(id), 1);
-            for (let k=card_on_field.indexOf(id) + 1; k<card_on_field.length; k++) { // была проблема с тем, когда убираю не крайнюю правую карту
-                card_on_field[k-1] = card_on_field[k]
+            for (let k = card_on_field.indexOf(id) + 1; k < card_on_field.length; k++) { // была проблема с тем, когда убираю не крайнюю правую карту
+                card_on_field[k - 1] = card_on_field[k]
             }
-            card_on_field.splice(card_on_field.length-1, 1);
+            card_on_field.splice(card_on_field.length - 1, 1);
 
             document.querySelector(`img.${event.target.className}`).style.opacity = "0";
             break;
@@ -160,16 +165,16 @@ function end_turn() {
 
     // Обновляем список карт в руке
     card_on_field.forEach(function (card_field) {
-        player_info_split = player_info_split.filter(function(f) { return f !== card_field })
+        player_info_split = player_info_split.filter(function (f) { return f !== card_field })
     })
 
     card_on_field_2_level.forEach(function (card_field) {
-        enemy_info_split = enemy_info_split.filter(function(f) { return f !== card_field })
+        enemy_info_split = enemy_info_split.filter(function (f) { return f !== card_field })
     })
 
 
     // Смотрим хороший пас или плохой
-    if (enemy_pass_bad){
+    if (enemy_pass_bad) {
         console.log('bad_pass');
         clear_table();
         card_distribution();
@@ -177,29 +182,44 @@ function end_turn() {
         return;
     }
 
-    if (enemy_pass_good){
+    if (enemy_pass_good) {
         console.log('good_pass');
         clear_table();
         card_distribution();
 
+        card_on_field_2_level = [];
+        card_on_field = [];
+        table_current = [];
+
         let no_cards = false;
+        let i = 1;
 
         while (!no_cards) {
             let player_card = document.querySelector(`img.player_card_${i}`);
             let field_card = document.querySelector(`img.field_card_${i}`);
 
             if (player_card !== null) {
-                player_card.addEventListener('click', move_player);// поменять
+                player_card.addEventListener('click', move_player); // поменять
             } else if (field_card !== null) {
                 field_card.addEventListener('click', move_field); // поменять
             } else {
                 no_cards = true;
             }
+            i++;
+        }
+
+        for (let i = 1; i < 7; i++) {
+            let above_card = document.querySelector(`img.field_card_${i}1`);
+            let field_card = document.querySelector(`img.field_card_${i}`);
+
+            above_card.style.zIndex = '1';
+            field_card.style.zIndex = '2';
         }
 
         let button = document.querySelector("button.button"); // поменять
         button.addEventListener('click', end_turn) // поменять
 
+        grouping_cards()
         return;
     }
 
@@ -225,6 +245,33 @@ function end_turn() {
     })
 }
 
+function grouping_cards() {
+    console.log("group");
+    let count_cards = 0;
+    let i = 1;
+    while (true) {  // Считаем кол-во карт
+        let card = document.querySelector(`img.player_card_${i}`);
+        if (card === null) break;
+        if (card.style.opacity === "1") count_cards += 1;
+        i++;
+    }
+
+    let step = (50 - count_cards) / 2;
+    let current_stage = 70 - step;
+    i = 1
+
+    while (true) {
+        let card = document.querySelector(`img.player_card_${i}`);
+        if (card === null) break;
+        if (card.style.opacity === "1") {
+            card.style.right = `${current_stage}%`;
+            current_stage -= 1;
+        }
+        i++;
+    }
+}
+
+grouping_cards();
 
 for (let i = 1; i < 7; i++) {
     let player_card = document.querySelector(`img.player_card_${i}`);
