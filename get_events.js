@@ -182,19 +182,33 @@ function end_turn() {
         clear_table();
         card_distribution();
 
+        card_on_field_2_level = [];
+        card_on_field = [];
+        table_current = [];
+
         let no_cards = false;
+        let i = 1;
 
         while (!no_cards) {
             let player_card = document.querySelector(`img.player_card_${i}`);
             let field_card = document.querySelector(`img.field_card_${i}`);
 
             if (player_card !== null) {
-                player_card.addEventListener('click', move_player);// поменять
+                player_card.addEventListener('click', move_player); // поменять
             } else if (field_card !== null) {
                 field_card.addEventListener('click', move_field); // поменять
             } else {
                 no_cards = true;
             }
+            i++;
+        }
+
+        for (let i = 1; i < 7; i++) {
+            let above_card = document.querySelector(`img.field_card_${i}1`);
+            let field_card = document.querySelector(`img.field_card_${i}`);
+
+            above_card.style.zIndex = '1';
+            field_card.style.zIndex = '2';
         }
 
         let button = document.querySelector("button.button"); // поменять
