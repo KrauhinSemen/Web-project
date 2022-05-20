@@ -58,58 +58,6 @@ function move_field(event) {
     console.log(card_on_field)
 }
 
-function can_beat_card(card_from_above, card_on_field) {
-
-    let number_above = card_from_above.split('-')[0];
-    let fraction_above = card_from_above.split('-')[1];
-
-    let number_field = card_on_field.split('-')[0];
-    let fraction_field = card_on_field.split('-')[1];
-
-    if (fraction_field === trump_fraction) {
-        if (fraction_above === trump_fraction) {
-            if (Number(number_above) > Number(number_field)) {
-                return [false, Number(number_above) - Number(number_field)];
-            } else {
-                return [false, false];
-            }
-        } else {
-            return [false, false];
-        }
-    } else {
-        if (fraction_above === trump_fraction) {
-            return [true, Number(number_above) - Number(number_field)];
-        } else {
-            if (fraction_field === fraction_above) {
-                if (Number(number_above) > Number(number_field)) {
-                    return [false, Number(number_above) - Number(number_field)];
-                } else {
-                    return [false, false];
-                }
-            } else {
-                return [false, false];
-            }
-        }
-    }
-}
-
-function clear_table() {
-    for (let i = 1; i < 7; i++) {
-        let card_on_field_1 = document.querySelector(`img.field_card_${i}`);
-        let card_on_field_2 = document.querySelector(`img.field_card_${i}1`);
-
-        card_on_field_1.src = `images/card_reverse.png`;
-        card_on_field_1.style.opacity = '0';
-
-        card_on_field_2.src = `images/card_reverse.png`;
-        card_on_field_2.style.opacity = '0';
-    }
-}
-
-function new_cards_enemy_from_table() {
-
-    // Тебе дописать
-}
 
 function end_turn() {
     // Получить список карт соперника
@@ -152,7 +100,8 @@ function end_turn() {
 
             console.log(`Результат сравнения: |${result}|`);
 
-            card_on_field_2_level.push(result[1]); // обновляем карты 2 уровня
+            if (result[1] !== ' ')
+                card_on_field_2_level.push(result[1]); // обновляем карты 2 уровня
 
             table_current.push(result[0], result[1]); // обновляем таблицу задействованных карт
 
@@ -171,13 +120,55 @@ function end_turn() {
         enemy_info_split = enemy_info_split.filter(function (f) { return f !== card_field })
     })
 
+    // Обновляем свойства на поле и тд
+    for (let i = 1; i < card_on_field_2_level.length + 1; i++) {
+
+        let above_card = document.querySelector(`img.field_card_${i}1`);
+        above_card.src = `images/${card_on_field_2_level[i-1]}.png`;
+        above_card.style.opacity = '1';
+        above_card.style.zIndex = '1';
+
+        let field_card = document.querySelector(`img.field_card_${i}`);
+        field_card.style.zIndex = '0';
+
+        let enemy_card = document.querySelector(`img.enemy_card_${i}`);
+        enemy_card.style.opacity = '0';
+    }
 
     // Смотрим хороший пас или плохой
     if (enemy_pass_bad) {
         console.log('bad_pass');
         clear_table();
-        card_distribution();
         new_cards_enemy_from_table();
+        card_distribution();
+
+        card_on_field_2_level = [];
+        card_on_field = [];
+        table_current = [];
+
+        let no_cards = false;
+        let i = 1;
+
+        while (!no_cards) {
+            let player_card = document.querySelector(`img.player_card_${i}`);
+            let field_card = document.querySelector(`img.field_card_${i}`);
+
+            if (player_card !== null) {
+                player_card.addEventListener('click', move_player);
+            } else if (field_card !== null) {
+                field_card.addEventListener('click', move_field);
+            } else {
+                no_cards = true;
+            }
+            i++;
+        }
+
+        let button = document.querySelector("button.button");
+        button.addEventListener('click', end_turn)
+
+        location_cards('player');
+        location_cards('enemy');
+
         return;
     }
 
@@ -198,55 +189,31 @@ function end_turn() {
             let field_card = document.querySelector(`img.field_card_${i}`);
 
             if (player_card !== null) {
-                player_card.addEventListener('click', move_player); // поменять
+                player_card.addEventListener('click', move_player);
             } else if (field_card !== null) {
-                field_card.addEventListener('click', move_field); // поменять
+                field_card.addEventListener('click', move_field);
             } else {
                 no_cards = true;
             }
             i++;
+
+            // писать защиту
         }
 
-        for (let i = 1; i < 7; i++) {
-            let above_card = document.querySelector(`img.field_card_${i}1`);
-            let field_card = document.querySelector(`img.field_card_${i}`);
+        let button = document.querySelector("button.button");
+        button.addEventListener('click', end_turn)
 
-            above_card.style.zIndex = '1';
-            field_card.style.zIndex = '2';
-        }
+        location_cards('player');
+        location_cards('enemy');
 
-        let button = document.querySelector("button.button"); // поменять
-        button.addEventListener('click', end_turn) // поменять
-
-        grouping_cards("player_card");
-        grouping_cards("enemy_card");
         return;
     }
 
     console.log(`Карты на поле: |${table_current}|`);
-
-    let i = 1;
-    card_on_field_2_level.forEach(function (card) {
-
-        let above_card = document.querySelector(`img.field_card_${i}1`);
-        let field_card = document.querySelector(`img.field_card_${i}`);
-        let enemy_card = document.querySelector(`img.enemy_card_${i}`);
-
-
-        above_card.src = `images/${card}.png`;
-        above_card.style.opacity = '1';
-        above_card.style.zIndex = '2';
-
-        field_card.style.zIndex = '1';
-
-        enemy_card.style.opacity = '0';
-
-        i = i + 1;
-    })
 }
 
-grouping_cards("player_card");
-grouping_cards("enemy_card");
+location_cards('player');
+location_cards('enemy');
 
 for (let i = 1; i < 7; i++) {
     let player_card = document.querySelector(`img.player_card_${i}`);
