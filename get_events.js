@@ -1,6 +1,7 @@
-let card_on_field = []; // Можно попробовать менять элементы, когда их бьют карты противника !!!
+let card_on_field = [];
 let card_on_field_2_level = [] // Это карты, которые покрывают другие
 let table_current = [];
+
 
 function move_player(event) {
     let id = event.target.id;
@@ -188,8 +189,8 @@ function end_turn() {
             let player_card = document.querySelector(`img.player_card_${i}`);
             let field_card = document.querySelector(`img.field_card_${i}`);
 
-            if (player_card !== null) {
-                player_card.addEventListener('click', move_player);
+            if (player_card !== null) { // Разве здесь не может быть так, чтобы выполнялось и то, и то условие? Вроде бы здесь некоторые карты поля могут не получить событие возвращения в коллоду
+                player_card.addEventListener('click', move_player); 
             } else if (field_card !== null) {
                 field_card.addEventListener('click', move_field);
             } else {
@@ -208,6 +209,9 @@ function end_turn() {
 
         return;
     }
+
+    location_cards('player');
+    location_cards('enemy');
 
     console.log(`Карты на поле: |${table_current}|`);
 }

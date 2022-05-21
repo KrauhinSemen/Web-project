@@ -79,6 +79,10 @@ function new_cards_enemy_from_table() {
                 new_card.style.right = '35%';
                 new_card.style.position = 'absolute';
                 new_card.style.opacity = '1';
+                new_card.style.height = '165px';
+                new_card.style.width = '115px';
+                new_card.style.border = '1px solid black'
+                new_card.id = card_field;
                 new_card.src = `images/card_reverse.png`;
 
                 document.getElementById("body").appendChild(new_card);

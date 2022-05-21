@@ -38,6 +38,7 @@ html {
     top: 40%;
     margin: 8px;
     z-index: 2;
+    border: 1px solid black;
 }
 
 .trump_card {
@@ -48,6 +49,7 @@ html {
     left: 36px;
     margin: 8px;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .player_card_1 {
@@ -58,6 +60,7 @@ html {
     right: 70%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .player_card_2 {
@@ -68,6 +71,7 @@ html {
     right: 60%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .player_card_3 {
@@ -78,6 +82,7 @@ html {
     right: 50%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .player_card_4 {
@@ -88,6 +93,7 @@ html {
     right: 40%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .player_card_5 {
@@ -98,6 +104,7 @@ html {
     right: 30%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .player_card_6 {
@@ -108,6 +115,7 @@ html {
     right: 20%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .enemy_card_1 {
@@ -116,6 +124,7 @@ html {
     width: 115px;
     right: 70%;
     opacity: 0;
+    border: 1px solid black;
 }
 
 .enemy_card_2 {
@@ -124,6 +133,7 @@ html {
     width: 115px;
     right: 60%;
     opacity: 0;
+    border: 1px solid black;
 }
 
 .enemy_card_3 {
@@ -132,6 +142,7 @@ html {
     width: 115px;
     right: 50%;
     opacity: 0;
+    border: 1px solid black;
 }
 
 .enemy_card_4 {
@@ -140,6 +151,7 @@ html {
     width: 115px;
     right: 40%;
     opacity: 0;
+    border: 1px solid black;
 }
 
 .enemy_card_5 {
@@ -148,6 +160,7 @@ html {
     width: 115px;
     right: 30%;
     opacity: 0;
+    border: 1px solid black;
 }
 
 .enemy_card_6 {
@@ -156,6 +169,7 @@ html {
     width: 115px;
     right: 20%;
     opacity: 0;
+    border: 1px solid black;
 }
 
 .field_card_1 {
@@ -166,6 +180,7 @@ html {
     top: 40%;
     opacity: 0;
     z-index: 2;
+    border: 1px solid black;
 }
 
 .field_card_2 {
@@ -176,6 +191,7 @@ html {
     top: 40%;
     opacity: 0;
     z-index: 2;
+    border: 1px solid black;
 }
 
 .field_card_3 {
@@ -186,6 +202,7 @@ html {
     top: 40%;
     opacity: 0;
     z-index: 2;
+    border: 1px solid black;
 }
 
 .field_card_4 {
@@ -196,6 +213,7 @@ html {
     top: 40%;
     opacity: 0;
     z-index: 2;
+    border: 1px solid black;
 }
 
 .field_card_5 {
@@ -206,6 +224,7 @@ html {
     top: 40%;
     opacity: 0;
     z-index: 2;
+    border: 1px solid black;
 }
 
 .field_card_6 {
@@ -216,6 +235,7 @@ html {
     top: 40%;
     opacity: 0;
     z-index: 2;
+    border: 1px solid black;
 }
 
 .field_card_11 {
@@ -226,6 +246,7 @@ html {
     top: 45%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .field_card_21 {
@@ -236,6 +257,7 @@ html {
     top: 45%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .field_card_31 {
@@ -246,6 +268,7 @@ html {
     top: 45%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .field_card_41 {
@@ -256,6 +279,7 @@ html {
     top: 45%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .field_card_51 {
@@ -266,6 +290,7 @@ html {
     top: 45%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .field_card_61 {
@@ -276,6 +301,7 @@ html {
     top: 45%;
     opacity: 0;
     z-index: 1;
+    border: 1px solid black;
 }
 
 .bito_card {
@@ -285,4 +311,5 @@ html {
     right: 8px;
     top: 40%;
     opacity: 0;
+    border: 1px solid black;
 }
