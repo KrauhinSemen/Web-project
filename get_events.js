@@ -5,6 +5,7 @@ let table_current = [];
 
 function move_player(event) {
     let id = event.target.id;
+
     let numbers_on_table = []
 
     if (document.querySelector(`img.${event.target.className}`).style.opacity === '0') return; // чтобы не выбирать дважды одну карту
@@ -35,9 +36,10 @@ function move_player(event) {
 }
 
 function move_field(event) {
-    let id = event.target.src.split('/').pop().split(".")[0]  // event.target.id; Не знаю почему, но этот вариант часто выдаёт "", вместо src
 
-    if (card_on_field.indexOf(id) < card_on_field_2_level.length) return;
+    if (event.target.style.opacity === '0' || event.target.style.opacity === '') return;
+
+    let id = event.target.id;
 
     for (let j = 1; j < 7; j++) { // Поиск первого незаполненого место для карты игрока для карты поля
         let player_card = document.querySelector(`img.player_card_${j}`);
@@ -46,7 +48,6 @@ function move_field(event) {
             player_card.style.opacity = "1";
             player_card.style.zIndex = "1"
 
-            //  card_on_field.splice(card_on_field.indexOf(id), 1);
             for (let k = card_on_field.indexOf(id) + 1; k < card_on_field.length; k++) { // была проблема с тем, когда убираю не крайнюю правую карту
                 card_on_field[k - 1] = card_on_field[k]
             }
@@ -128,11 +129,12 @@ function end_turn() {
         above_card.src = `images/${card_on_field_2_level[i-1]}.png`;
         above_card.style.opacity = '1';
         above_card.style.zIndex = '1';
+        above_card.id = card_on_field_2_level[i-1];
 
         let field_card = document.querySelector(`img.field_card_${i}`);
         field_card.style.zIndex = '0';
 
-        let enemy_card = document.querySelector(`img.enemy_card_${i}`);
+        let enemy_card = document.getElementById(card_on_field_2_level[i-1]);
         enemy_card.style.opacity = '0';
     }
 
@@ -176,6 +178,7 @@ function end_turn() {
     if (enemy_pass_good) {
         console.log('good_pass');
         clear_table();
+        redefinition_styles();
         card_distribution();
 
         card_on_field_2_level = [];

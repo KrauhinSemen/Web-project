@@ -7,7 +7,7 @@
     <title>Durak</title>
 </head>
 
-<body class="body" id = "body">
+<body class="body">
 <p class="deck_info"></p>
 <p class="enemy_info"></p>
 <p class="player_move"></p>
@@ -15,34 +15,38 @@
 <img class="trump_card" src="images/card_reverse.png" alt="Козырь">
 <script src="formation_deck.js"></script>
 
+<p id = "player_cards">
 <img class="player_card_1" src="images/card_reverse.png" alt="Карта игрока 1">
 <img class="player_card_2" src="images/card_reverse.png" alt="Карта игрока 2">
 <img class="player_card_3" src="images/card_reverse.png" alt="Карта игрока 3">
 <img class="player_card_4" src="images/card_reverse.png" alt="Карта игрока 4">
 <img class="player_card_5" src="images/card_reverse.png" alt="Карта игрока 5">
 <img class="player_card_6" src="images/card_reverse.png" alt="Карта игрока 6">
-
+</p>
+<p id = "enemy_cards">
 <img class="enemy_card_1" src="images/card_reverse.png" alt="Карта противника 1">
 <img class="enemy_card_2" src="images/card_reverse.png" alt="Карта противника 2">
 <img class="enemy_card_3" src="images/card_reverse.png" alt="Карта противника 3">
 <img class="enemy_card_4" src="images/card_reverse.png" alt="Карта противника 4">
 <img class="enemy_card_5" src="images/card_reverse.png" alt="Карта противника 5">
 <img class="enemy_card_6" src="images/card_reverse.png" alt="Карта противника 6">
-
+</p>
+<p id = "field_cards">
 <img class="field_card_1" src="images/card_reverse.png" alt="Карта поля 1">
 <img class="field_card_2" src="images/card_reverse.png" alt="Карта поля 2">
 <img class="field_card_3" src="images/card_reverse.png" alt="Карта поля 3">
 <img class="field_card_4" src="images/card_reverse.png" alt="Карта поля 4">
 <img class="field_card_5" src="images/card_reverse.png" alt="Карта поля 5">
 <img class="field_card_6" src="images/card_reverse.png" alt="Карта поля 6">
-
+</p>
+<p id = "field_cards_level_2">
 <img class="field_card_11" src="images/card_reverse.png" alt="Карта поля 11">
 <img class="field_card_21" src="images/card_reverse.png" alt="Карта поля 21">
 <img class="field_card_31" src="images/card_reverse.png" alt="Карта поля 31">
 <img class="field_card_41" src="images/card_reverse.png" alt="Карта поля 41">
 <img class="field_card_51" src="images/card_reverse.png" alt="Карта поля 51">
 <img class="field_card_61" src="images/card_reverse.png" alt="Карта поля 61">
-
+</p>
 <img class="bito_card" src="images/card_reverse.png" alt="Бито">
 
 <button class="button">Завершить ход</button>
@@ -50,5 +54,4 @@
 <script src="functions.js"></script>
 </body>
 
-<script src="grouping_cards.js"></script>
 <script src="get_events.js"></script>

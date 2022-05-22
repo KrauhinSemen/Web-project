@@ -59,6 +59,27 @@ function clear_table() {
     }
 }
 
+function redefinition_styles() {
+    let i = 0;
+    while (true) {
+        let enemy_card = document.querySelector(`img.enemy_card_${i+1}`);
+
+        if (i < enemy_info_split.length) {
+            enemy_card.id = enemy_info_split[i];
+            enemy_card.style.opacity = '1';
+        } else {
+            if (enemy_card === null) {
+                break
+            } else if (i > 5){
+                enemy_card.remove();
+            } else {
+                enemy_card.style.opacity = '0';
+            }
+        }
+        i++;
+    }
+}
+
 function new_cards_enemy_from_table() {
 
     let new_card;
@@ -79,13 +100,11 @@ function new_cards_enemy_from_table() {
                 new_card.style.right = '35%';
                 new_card.style.position = 'absolute';
                 new_card.style.opacity = '1';
-                new_card.style.height = '165px';
-                new_card.style.width = '115px';
                 new_card.style.border = '1px solid black'
                 new_card.id = card_field;
                 new_card.src = `images/card_reverse.png`;
 
-                document.getElementById("body").appendChild(new_card);
+                document.getElementById("enemy_cards").appendChild(new_card);
 
                 max_cards++;
                 break
