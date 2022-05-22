@@ -2,7 +2,8 @@ function enemy_move() {
     for (let i = 0; i < enemy_info_split.length; i++) {
 
 
-        // можешь писать здесь
+        // можешь писать здесь 
+        //
 
 
 
