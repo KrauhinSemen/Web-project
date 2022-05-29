@@ -9,13 +9,23 @@ html {
     background-size: cover;
 }
 
-.button {
+.button_attack {
     background-color: rgb(0, 255, 0);
     height: 50px;
     width: 150px;
     font-weight: bold;
     position: absolute;
     top: 85%;
+    right: 80px;
+}
+
+.button_defence {
+    background-color: rgb(255, 0, 0);
+    height: 50px;
+    width: 150px;
+    font-weight: bold;
+    position: absolute;
+    top: 15%;
     right: 80px;
 }
 

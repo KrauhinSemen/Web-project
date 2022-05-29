@@ -204,7 +204,7 @@ function end_turn_attack() {
             // писать защиту
         }
 
-        let button = document.querySelector("button.button");
+        let button = document.querySelector("button.button_attack");
         button.addEventListener('click', end_turn_defense);
 
         location_cards('player');
