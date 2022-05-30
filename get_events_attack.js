@@ -1,6 +1,4 @@
-let card_on_field = [];
-let card_on_field_2_level = [] // Это карты, которые покрывают другие
-let table_current = [];
+
 
 
 function move_player(event) {
@@ -193,9 +191,9 @@ function end_turn_attack() {
             let field_card = document.querySelector(`img.field_card_${i}`);
 
             if (player_card !== null) { // Разве здесь не может быть так, чтобы выполнялось и то, и то условие? Вроде бы здесь некоторые карты поля могут не получить событие возвращения в коллоду
-                player_card.addEventListener('click', move_player); 
+                player_card.addEventListener('click', select_current_card);
             } else if (field_card !== null) {
-                field_card.addEventListener('click', move_field);
+                field_card.addEventListener('click', move_field_current_card);
             } else {
                 no_cards = true;
             }
@@ -204,7 +202,7 @@ function end_turn_attack() {
             // писать защиту
         }
 
-        let button = document.querySelector("button.button_attack");
+        let button = document.querySelector("button.button");
         button.addEventListener('click', end_turn_defense);
 
         location_cards('player');
@@ -220,16 +218,3 @@ function end_turn_attack() {
 
     console.log(`Карты на поле: |${table_current}|`);
 }
-
-location_cards('player');
-location_cards('enemy');
-
-for (let i = 1; i < 7; i++) {
-    let player_card = document.querySelector(`img.player_card_${i}`);
-    let field_card = document.querySelector(`img.field_card_${i}`);
-    player_card.addEventListener('click', move_player);
-    field_card.addEventListener('click', move_field);
-}
-
-let button = document.querySelector("button.button_attack");
-button.addEventListener('click', end_turn_attack)
