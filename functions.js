@@ -59,52 +59,86 @@ function clear_table() {
     }
 }
 
-function redefinition_styles() {
+function redefinition_styles(is_player) {
     let i = 0;
-    while (true) {
-        let enemy_card = document.querySelector(`img.enemy_card_${i+1}`);
+    let enemy_or_player_card;
+    let enemy_or_player_info;
 
-        if (i < enemy_info_split.length) {
-            enemy_card.id = enemy_info_split[i];
-            enemy_card.style.opacity = '1';
+    while (true) {
+        if (is_player) {
+            enemy_or_player_card = document.querySelector(`img.player_card_${i+1}`);
+            enemy_or_player_info = player_info_split;
         } else {
-            if (enemy_card === null) {
+            enemy_or_player_card = document.querySelector(`img.enemy_card_${i+1}`);
+            enemy_or_player_info = enemy_info_split;
+        }
+
+        if (i < enemy_or_player_info.length) {
+            enemy_or_player_card.id = enemy_or_player_info[i];
+            enemy_or_player_card.style.opacity = '1';
+        } else {
+            if (enemy_or_player_card === null) {
                 break
             } else if (i > 5){
-                enemy_card.remove();
+                enemy_or_player_card.remove();
             } else {
-                enemy_card.style.opacity = '0';
+                enemy_or_player_card.style.opacity = '0';
             }
         }
         i++;
     }
 }
 
-function new_cards_enemy_from_table() {
+function new_cards_enemy_from_table(is_player) {
 
     let new_card;
+    let max_cards;
     let new_cards = card_on_field.concat(card_on_field_2_level);
-    let max_cards = enemy_info_split.length + new_cards.length * 2;
 
-    console.log(new_cards)
+    if (is_player)
+        max_cards = player_info_split.length + new_cards.length * 2;
+    else
+        max_cards = enemy_info_split.length + new_cards.length * 2;
 
     new_cards.forEach(function (card_field) {
-        enemy_info_split.push(card_field)
+        if (is_player)
+            player_info_split.push(card_field)
+        else
+            enemy_info_split.push(card_field)
 
         for (let i = 1; i < max_cards; i++) {
-            let card = document.querySelector(`img.enemy_card_${i}`);
+            let card;
+
+            if (is_player)
+                card = document.querySelector(`img.player_card_${i}`)
+            else
+                card = document.querySelector(`img.enemy_card_${i}`)
 
             if (card === null) {
                 new_card = document.createElement("img");
-                new_card.className = `enemy_card_${i}`;
-                new_card.style.right = '35%';
+                if (is_player) {
+                    new_card.className = `player_card_${i}`
+                    new_card.style.height = '165px';
+                    new_card.style.wight = '115px';
+                    new_card.style.top = '75%';
+                    new_card.style.right = '35%';
+                    new_card.style.zIndex = '1';
+                    new_card.src = `images/${card_field}.png`;
+                } else {
+                    new_card.className = `enemy_card_${i}`
+                    new_card.style.right = '35%';
+                    new_card.src = `images/card_reverse.png`;
+                }
+
                 new_card.style.position = 'absolute';
                 new_card.style.opacity = '1';
                 new_card.style.border = '1px solid black'
                 new_card.id = card_field;
-                new_card.src = `images/card_reverse.png`;
 
-                document.getElementById("enemy_cards").appendChild(new_card);
+                if (is_player)
+                    document.getElementById("player_cards").appendChild(new_card);
+                else
+                    document.getElementById("enemy_cards").appendChild(new_card);
 
                 max_cards++;
                 break
@@ -150,4 +184,98 @@ function can_beat_card(card_from_above, card_on_field) {
             }
         }
     }
+}
+
+function good_for_player(is_attack, is_player_takes) { // хорошее отбитие или противник взял
+
+    console.log('bad_pass');
+
+    clear_table();
+
+    if (is_attack)
+        new_cards_enemy_from_table(is_player_takes);
+
+    redefinition_styles();
+    card_distribution();
+
+    card_on_field_2_level = [];
+    card_on_field = [];
+    table_current = [];
+
+    let no_cards = false;
+    let i = 1;
+
+    while (!no_cards) {
+        let player_card = document.querySelector(`img.player_card_${i}`);
+        let field_card = document.querySelector(`img.field_card_${i}`);
+        let field_card_2 =  document.querySelector(`img.field_card_${i}1`);
+
+        if (player_card !== null) {
+            player_card.removeEventListener('click', select_current_card);
+            player_card.addEventListener('click', move_player);
+        }
+        if (field_card !== null) {
+            field_card.removeEventListener('click', move_player_current_card);
+            field_card.addEventListener('click', move_field);
+        }
+        if (field_card_2 !== null) {
+            field_card.removeEventListener('click', move_field_current_card);
+        } else {
+            no_cards = true;
+        }
+        i++;
+    }
+
+    let button = document.querySelector("button.button");
+    button.removeEventListener('click', end_turn_defense);
+    button.addEventListener('click', end_turn_attack)
+
+    location_cards('player');
+    location_cards('enemy');
+}
+
+function good_for_enemy(is_attack, is_player_takes) { // хорошее отбитие или игрок взял
+    console.log('good_pass');
+    clear_table();
+
+    if (is_attack)
+        new_cards_enemy_from_table(is_player_takes);
+
+    redefinition_styles();
+    card_distribution();
+
+    card_on_field_2_level = [];
+    card_on_field = [];
+    table_current = [];
+
+    let no_cards = false;
+    let i = 1;
+
+    while (!no_cards) {
+        let player_card = document.querySelector(`img.player_card_${i}`);
+        let field_card = document.querySelector(`img.field_card_${i}`);
+
+        if (player_card !== null) {// Разве здесь не может быть так, чтобы выполнялось и то, и то условие? Вроде бы здесь некоторые карты поля могут не получить событие возвращения в коллоду
+            player_card.removeEventListener('click', move_player);
+            player_card.addEventListener('click', select_current_card);
+        }
+        if (field_card !== null) {
+            field_card.removeEventListener('click', move_field);
+            field_card.addEventListener('click', move_player_current_card);
+        } else {
+            no_cards = true;
+        }
+        i++;
+    }
+
+    let button = document.querySelector("button.button");
+    button.removeEventListener('click', end_turn_attack);
+    button.addEventListener('click', end_turn_defense);
+
+    console.log(player_info_split, enemy_info_split)
+
+    location_cards('player');
+    location_cards('enemy');
+
+    enemy_move();
 }

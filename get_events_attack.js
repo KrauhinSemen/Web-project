@@ -67,7 +67,7 @@ function end_turn_attack() {
     let enemy_pass_bad = false;
     let enemy_pass_good = true;
 
-    card_on_field.forEach(function (card_field) {  // Сопоставляет каждой карте на поле карту противника, которую  может побить
+    card_on_field.forEach(function (card_field) {  // Сопоставляет каждой карте на поле карту противника, которую может побить
 
         if (!table_current.includes(card_field)) {
 
@@ -138,78 +138,12 @@ function end_turn_attack() {
 
     // Смотрим хороший пас или плохой
     if (enemy_pass_bad) {
-        console.log('bad_pass');
-        clear_table();
-        new_cards_enemy_from_table();
-        card_distribution();
-
-        card_on_field_2_level = [];
-        card_on_field = [];
-        table_current = [];
-
-        let no_cards = false;
-        let i = 1;
-
-        while (!no_cards) {
-            let player_card = document.querySelector(`img.player_card_${i}`);
-            let field_card = document.querySelector(`img.field_card_${i}`);
-
-            if (player_card !== null) {
-                player_card.addEventListener('click', move_player);
-            } else if (field_card !== null) {
-                field_card.addEventListener('click', move_field);
-            } else {
-                no_cards = true;
-            }
-            i++;
-        }
-
-        let button = document.querySelector("button.button");
-        button.addEventListener('click', end_turn_attack)
-
-        location_cards('player');
-        location_cards('enemy');
-
+        good_for_player(true, false)
         return;
     }
 
     if (enemy_pass_good) {
-        console.log('good_pass');
-        clear_table();
-        redefinition_styles();
-        card_distribution();
-
-        card_on_field_2_level = [];
-        card_on_field = [];
-        table_current = [];
-
-        let no_cards = false;
-        let i = 1;
-
-        while (!no_cards) {
-            let player_card = document.querySelector(`img.player_card_${i}`);
-            let field_card = document.querySelector(`img.field_card_${i}`);
-
-            if (player_card !== null) { // Разве здесь не может быть так, чтобы выполнялось и то, и то условие? Вроде бы здесь некоторые карты поля могут не получить событие возвращения в коллоду
-                player_card.addEventListener('click', select_current_card);
-            } else if (field_card !== null) {
-                field_card.addEventListener('click', move_field_current_card);
-            } else {
-                no_cards = true;
-            }
-            i++;
-
-            // писать защиту
-        }
-
-        let button = document.querySelector("button.button");
-        button.addEventListener('click', end_turn_defense);
-
-        location_cards('player');
-        location_cards('enemy');
-
-        enemy_move();
-
+        good_for_enemy(false,true)
         return;
     }
 

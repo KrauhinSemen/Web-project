@@ -66,12 +66,12 @@ function enemy_move() {
 
     // Заполнение информации о картах на поле и в колоде противника
     for (let i=0; i< answer.length; i++) {
-        for (let k = enemy_info_split.indexOf(answer[i]) + 1; k < enemy_info_split.length; k++) {
-            card_on_field[k - 1] = card_on_field[k]
-        }
-        enemy_info_split.splice(enemy_info_split.length - 1, 1);
-        card_on_field[card_on_field.length] = answer[i];
+        card_on_field.push(answer[i])
+
+        let enemy_card = document.getElementById(answer[i]);
+        enemy_card.style.opacity = '0'
     }
+
     document.querySelector("p.enemy_info").textContent = enemy_info_split.join(' ');
 
     // Расстановка карт на поле
@@ -88,7 +88,47 @@ function enemy_move() {
 }
 
 function end_turn_defense() {
-    // я буду здесь
+
+    // Обновляем список карт в руке
+    card_on_field_2_level.forEach(function (card_field) {
+        player_info_split = player_info_split.filter(function (f) { return f !== card_field })
+    })
+
+    card_on_field.forEach(function (card_field) {
+        enemy_info_split = enemy_info_split.filter(function (f) { return f !== card_field })
+    })
+
+    // Смотрим хороший пас или плохой
+    if (card_on_field.length > card_on_field_2_level.length) {
+        if (current_card !== null)
+            current_card.style.top = '75%';
+        good_for_enemy(true, true)
+        return;
+    } else {
+
+        enemy_move();
+
+        // Обновляем список карт в руке
+        card_on_field_2_level.forEach(function (card_field) {
+            player_info_split = player_info_split.filter(function (f) { return f !== card_field })
+        })
+
+        card_on_field.forEach(function (card_field) {
+            enemy_info_split = enemy_info_split.filter(function (f) { return f !== card_field })
+        })
+
+        console.log(player_info_split, enemy_info_split)
+
+        location_cards('player');
+        location_cards('enemy');
+
+        if (card_on_field.length === card_on_field_2_level.length) {
+            good_for_player(false, true)
+            return;
+        }
+    }
+
+    console.log(`Карты на поле: |${card_on_field.concat(card_on_field_2_level)}|`);
 }
 
 function select_current_card(event) {
@@ -113,7 +153,7 @@ function move_player_current_card(event) {
         field_card_2.src = current_card.currentSrc;
         field_card_2.style.opacity = "1";
 
-        card_on_field_2_level.push(card.id);
+        card_on_field_2_level.push(current_card.id);
 
         document.querySelector(`img.${current_card.className}`).style.opacity = '0';
         document.querySelector(`img.${current_card.className}`).style.top = '75%';
