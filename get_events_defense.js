@@ -89,6 +89,12 @@ function enemy_move() {
 
 function end_turn_defense() {
 
+    console.log('defense')
+
+    if (current_card !== null)
+        current_card.style.top = '75%';
+        current_card.style.zIndex = '0';
+
     // Обновляем список карт в руке
     card_on_field_2_level.forEach(function (card_field) {
         player_info_split = player_info_split.filter(function (f) { return f !== card_field })
@@ -100,8 +106,6 @@ function end_turn_defense() {
 
     // Смотрим хороший пас или плохой
     if (card_on_field.length > card_on_field_2_level.length) {
-        if (current_card !== null)
-            current_card.style.top = '75%';
         good_for_enemy(true, true)
         return;
     } else {
@@ -117,7 +121,7 @@ function end_turn_defense() {
             enemy_info_split = enemy_info_split.filter(function (f) { return f !== card_field })
         })
 
-        console.log(player_info_split, enemy_info_split)
+        //console.log(card_on_field_2_level, card_on_field)
 
         location_cards('player');
         location_cards('enemy');
@@ -159,8 +163,6 @@ function move_player_current_card(event) {
         document.querySelector(`img.${current_card.className}`).style.top = '75%';
 
         document.querySelector(`img.${field_card_1.className}`).style.zIndex = '0';
-
-        current_card = null;
 
         field_card_2.addEventListener('click', move_field_current_card)
     }

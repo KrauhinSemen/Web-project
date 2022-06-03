@@ -60,6 +60,9 @@ function move_field(event) {
 
 
 function end_turn_attack() {
+
+    console.log('attack')
+
     // Получить список карт соперника
     let enemy_info_split_current = enemy_info_split;
 

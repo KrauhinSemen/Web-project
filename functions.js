@@ -76,6 +76,9 @@ function redefinition_styles(is_player) {
         if (i < enemy_or_player_info.length) {
             enemy_or_player_card.id = enemy_or_player_info[i];
             enemy_or_player_card.style.opacity = '1';
+            enemy_or_player_card.style.zIndex = '1';
+            if (is_player)
+                enemy_or_player_card.src = `images/${enemy_or_player_card.id}.png`;
         } else {
             if (enemy_or_player_card === null) {
                 break
@@ -195,7 +198,9 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
     if (is_attack)
         new_cards_enemy_from_table(is_player_takes);
 
-    redefinition_styles();
+    redefinition_styles(true);
+    redefinition_styles(false);
+
     card_distribution();
 
     card_on_field_2_level = [];
@@ -220,8 +225,6 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
         }
         if (field_card_2 !== null) {
             field_card.removeEventListener('click', move_field_current_card);
-        } else {
-            no_cards = true;
         }
         i++;
     }
@@ -241,29 +244,33 @@ function good_for_enemy(is_attack, is_player_takes) { // хорошее отби
     if (is_attack)
         new_cards_enemy_from_table(is_player_takes);
 
-    redefinition_styles();
+    redefinition_styles(true);
+    redefinition_styles(false);
+
     card_distribution();
 
     card_on_field_2_level = [];
     card_on_field = [];
     table_current = [];
 
-    let no_cards = false;
+    let no_cards = [false, false];
     let i = 1;
 
-    while (!no_cards) {
+    while (!(no_cards[0] && no_cards[1])) {
         let player_card = document.querySelector(`img.player_card_${i}`);
         let field_card = document.querySelector(`img.field_card_${i}`);
 
         if (player_card !== null) {// Разве здесь не может быть так, чтобы выполнялось и то, и то условие? Вроде бы здесь некоторые карты поля могут не получить событие возвращения в коллоду
             player_card.removeEventListener('click', move_player);
             player_card.addEventListener('click', select_current_card);
+        } else {
+            no_cards[0] = true
         }
         if (field_card !== null) {
             field_card.removeEventListener('click', move_field);
             field_card.addEventListener('click', move_player_current_card);
         } else {
-            no_cards = true;
+            no_cards[1] = true
         }
         i++;
     }
