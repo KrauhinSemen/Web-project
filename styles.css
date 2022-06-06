@@ -52,6 +52,107 @@ html {
     border: 1px solid black;
 }
 
+#zatemnenie {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 3;
+}
+
+#okno {
+    width: 150px;
+    height: 130px;
+    text-align: center;
+    padding: 15px;
+    border: 3px solid #0000cc;
+    border-radius: 10px;
+    color: #0000cc;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: #fff;
+    z-index: 3;
+}
+
+#zatemnenie:target {
+    display: block;
+}
+
+.text_rules {
+    display: none;
+    padding: 15px;
+    border: 3px solid #0000cc;
+    border-radius: 10px;
+    color: #000000;
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    margin: auto;
+    background-color: whitesmoke;
+    z-index: 3;
+}
+
+.button_rules {
+    width: 130px;
+    display: block;
+    border: 1px solid #0000cc;
+    color: #0000cc;
+    padding: 0 12px;
+    margin: 10px;
+    text-decoration: none;
+    background: #f2f2f2;
+    font-size: 14pt;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.reset {
+    width: 130px;
+    display: block;
+    border: 1px solid #0000cc;
+    color: #0000cc;
+    padding: 0 12px;
+    margin: 10px;
+    text-decoration: none;
+    background: #f2f2f2;
+    font-size: 14pt;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.close {
+    width: 130px;
+    display: block;
+    border: 1px solid #0000cc;
+    color: #0000cc;
+    padding: 0 12px;
+    margin: 10px;
+    text-decoration: none;
+    background: #f2f2f2;
+    font-size: 14pt;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.button_rules:hover {
+    background: #e6e6ff;
+}
+
+.reset:hover {
+    background: #e6e6ff;
+}
+
+.close:hover {
+    background: #e6e6ff;
+} 
+
 .player_card_1 {
     position: absolute;
     height: 165px;
@@ -312,4 +413,12 @@ html {
     top: 40%;
     opacity: 0;
     border: 1px solid black;
+}
+
+.who_move {
+    position: absolute;
+    right: 50px;
+    font-size: 40px;
+    font-weight: bold;
+    color: blue;
 }

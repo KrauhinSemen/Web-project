@@ -193,6 +193,10 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
 
     console.log('bad_pass');
 
+    let who_move = document.querySelector('p.who_move');
+    who_move.textContent = 'Ход игрока';
+    who_move.style.color = 'blue';
+
     clear_table();
 
     if (is_attack)
