@@ -211,10 +211,10 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
     card_on_field = [];
     table_current = [];
 
-    let no_cards = false;
+    let no_cards = [false, false];
     let i = 1;
 
-    while (!no_cards) {
+    while (!(no_cards[0] && no_cards[1])) {
         let player_card = document.querySelector(`img.player_card_${i}`);
         let field_card = document.querySelector(`img.field_card_${i}`);
         let field_card_2 =  document.querySelector(`img.field_card_${i}1`);
@@ -222,6 +222,8 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
         if (player_card !== null) {
             player_card.removeEventListener('click', select_current_card);
             player_card.addEventListener('click', move_player);
+        } else {
+            no_cards[0] = true
         }
         if (field_card !== null) {
             field_card.removeEventListener('click', move_player_current_card);
@@ -229,6 +231,8 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
         }
         if (field_card_2 !== null) {
             field_card.removeEventListener('click', move_field_current_card);
+        } else {
+            no_cards[1] = true
         }
         i++;
     }
