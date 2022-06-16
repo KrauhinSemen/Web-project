@@ -109,7 +109,6 @@ function enemy_move() {
 }
 
 function end_turn_defense() {
-
     console.log('defense')
 
     if (current_card !== null) { // !!! Добавил скобочки
