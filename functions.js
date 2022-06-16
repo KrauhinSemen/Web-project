@@ -25,6 +25,24 @@ function check_colode() {
     if (index_deck === 36) document.querySelector('img.trump_card').style.display ='none';
 }
 
+function location_card_on_field() {
+    for (let j = 1; j < 7; j++) {
+        let card = document.querySelector(`img.field_card_${j}`);
+        card.style.opacity = '0';
+    }
+
+    card_on_field.forEach(function (card) {
+        for (let j = 1; j < 7; j++) {
+            let card_on_field = document.querySelector(`img.field_card_${j}`);
+            if (card_on_field.style.opacity !== '1') {
+                card_on_field.src = `images/${card}.png`;
+                card_on_field.style.opacity = '1';
+                break;
+            }
+        }
+    });
+}
+
 function location_cards(player_or_enemy) {
 
     let count;

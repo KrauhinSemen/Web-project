@@ -38,7 +38,7 @@ function move_field(event) {
 
     let id = event.target.id;
 
-    for (let j = 1; j < 7; j++) { // Поиск первого незаполненого место для карты игрока для карты поля
+    for (let j = 1; j < 36; j++) { // Поиск первого незаполненого место для карты игрока для карты поля
         let player_card = document.querySelector(`img.player_card_${j}`);
         if (player_card.style.opacity === "0" || player_card.style.opacity === '') {
             player_card.src = event.target.currentSrc;
@@ -54,13 +54,16 @@ function move_field(event) {
             break;
         }
     }
+
+    location_card_on_field();
+
     console.log(card_on_field)
 }
 
 
 function end_turn_attack() {
 
-    if (card_on_field.length == 0) return // !!! Добавил проверку на наличие карт на доске
+    if (card_on_field.length === 0) return // !!! Добавил проверку на наличие карт на доске
 
     console.log('attack')
 
