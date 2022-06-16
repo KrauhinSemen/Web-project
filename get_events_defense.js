@@ -3,7 +3,7 @@ function enemy_move() {
     who_move.textContent = 'Ход противника';
     who_move.style.color = 'red';
 
-    let count_free_fields = 6 - card_on_field.length; // количество свободных карт поля
+    let count_free_fields = 6 - Math.max(card_on_field.length, (6 - player_info_split.length)); // количество свободных карт поля
     if (count_free_fields === 0) return;
 
     let values_field = []
@@ -58,9 +58,10 @@ function enemy_move() {
     else {
         for (let i = 0; i < par_val.length; i++) {
             if (((par_val[i] <= 10 && par_val[i] - Number(min_card.split('-')[0]) <= 3) || par_val[i] - Number(min_card.split('-')[0]) <= 2)
-                && count_par_card[i] > 1 && count_par_card[i]<=count_free_fields
-                && (values_field.indexOf(par_val[i]) !== -1 || values_field.length === 0)) {          // Я примерно так играю в общем случае
-                if (answer.length === 0 || Number(answer[0].split('-')[0]) < par_val[i]) { // изменил на "<" 
+                && count_par_card[i] > 1 && count_par_card[i] + answer.length<=count_free_fields
+                && (values_field.indexOf(par_val[i]) !== -1 || (values_field.length === 0 && answer.length === 0))) {  // Я примерно так играю в общем случае // добавил "+ answer.length", "&& answer.length === 0"
+                if (answer.length === 0 || Number(answer[0].split('-')[0]) > par_val[i]) { // изменил на ">" 
+                    answer = []; // !!! Добавил обнуление ответа
                     for (let j = 0; j < enem_cards.length; j++) {
                         if (Number(enem_cards[j].split('-')[0]) === par_val[i] && enem_cards[j].split('-')[1] != trump) { // добавил невозможность добавления козыря
                             answer[answer.length] = enem_cards[j];
@@ -111,9 +112,10 @@ function end_turn_defense() {
 
     console.log('defense')
 
-    if (current_card !== null)
+    if (current_card !== null) { // !!! Добавил скобочки
         current_card.style.top = '75%';
         current_card.style.zIndex = '0';
+    }
 
     // Обновляем список карт в руке
     card_on_field_2_level.forEach(function (card_field) {
@@ -147,6 +149,7 @@ function end_turn_defense() {
         location_cards('enemy');
 
         if (card_on_field.length === card_on_field_2_level.length) {
+            document.querySelector('img.bito_card').style.opacity = '1';
             good_for_player(false, true)
             return;
         }
@@ -166,6 +169,7 @@ function select_current_card(event) {
 }
 
 function move_player_current_card(event) {
+    if (card_on_field_2_level.indexOf(current_card.id) !== -1) return;
     let card = event.target;
     let result = can_beat_card(current_card.id, card.id);
 
@@ -198,6 +202,7 @@ function move_field_current_card(event) {
             if (player_card.style.opacity === "0" || player_card.style.opacity === '') {
                 player_card.src = event.target.currentSrc;
                 player_card.style.opacity = "1";
+                player_card.style.display = null;
                 player_card.style.zIndex = "1"
 
                 for (let k = card_on_field.indexOf(card.id) + 1; k < card_on_field.length; k++) { // была проблема с тем, когда убираю не крайнюю правую карту

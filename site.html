@@ -8,92 +8,99 @@
 </head>
 
 <body class="body">
-<p class="deck_info"></p>
-<p class="enemy_info"></p>
-<p class="player_move"></p>
-<img class="deck" src="images/card_reverse.png" alt="Колода карт">
-<img class="trump_card" src="images/card_reverse.png" alt="Козырь">
+    <p class="deck_info"></p>
+    <p class="enemy_info"></p>
+    <p class="player_move"></p>
+    <p class="deck_counter">36 карт</p>
+    <img class="deck" src="images/card_reverse.png" alt="Колода карт">
+    <img class="trump_card" src="images/card_reverse.png" alt="Козырь">
 
-<div id="zatemnenie">
-    <div id="okno">
-        Меню<br>
-        <button class="button_rules">Правила</button>
-        <button class="reset">Новая игра</button>
-        <button class="close">Закрыть</button>
+    <div id="zatemnenie_winner">
+        <div id="okno_winner">
+            <p class="who_winner">Победитель</p>
+            <button class="reset">Новая игра</button>
+        </div>
     </div>
-</div>
 
-<p class="text_rules">Правила игры в "подкидного" дурака:<br>
-    <br>
-    1) Используемые элементы:<br>
-    ....а) Колода из 36 карт и карта, показывающая "козырную" масть в данной игре (левая сторана, середина);<br>
-    ....б) По одной игровой коолоде у игрока и противнка (верх и низ, середина);<br>
-    ....в) Колода "Бито", куда убираются карты после успешного отражения атаки одной из сторон (правая сторона,
-    середина);<br>
-    ....г) Кнопка конца хода (правая сторона, низ);<br>
-    ....д) Показатель, чей ход (правая сторона, верх);<br>
-    <br>
-    2) Как проходит игра:<br>
-    ....а) В начале игры и после каждого хода из колоды раздаются карты каждому участнику пока у них меньше, чем
-    шесть карт,или пока в колоде не закончатся карт;<br>
-    ....б) Первый ход распределяется случайно, дальше очерёдность идёт по очереди. Очередь может быть сохранена за
-    участником, если его оппонент не смог отразить атаку;<br>
-    ....в) Атака происходит следующим образом: <br>
-    ........I ) Участник выкладывает на доску карты одной "стоимости" в цифрах без учёта масти, затем завершает
-    ход;<br>
-    ........II ) Если оппонент отбился, то атакующий может "подкинуть" любые карты из своей колоды ой же
-    "стоимости", что и карты на доске;<br>
-    ........III ) Если оппонент не отбился, то он забирает себе все карты с доски и следующий ход остаётся за
-    нападающим;<br>
-    ........IV ) Если оппонент отбился и вам нечего "подкинуть", то карты уходят в "бито", а следующий ход делает
-    обороняющийся;<br>
-    ........V ) Одновременно на доске может находится не более 6 атакующих карт;<br>
-    <br>
-    3) Условия победы: У участника не остаётся карт
-</p>
+    <div id="zatemnenie_menu">
+        <div id="okno_menu">
+            Меню<br>
+            <button class="button_rules">Правила</button>
+            <button class="reset">Новая игра</button>
+            <button class="close">Закрыть</button>
+        </div>
+    </div>
 
-<script src="formation_deck.js"></script>
+    <p class="text_rules">Правила игры в "подкидного" дурака:<br>
+        <br>
+        1) Используемые элементы:<br>
+        ....а) Колода из 36 карт и карта, показывающая "козырную" масть в данной игре (левая сторана, середина);<br>
+        ....б) По одной игровой коолоде у игрока и противнка (верх и низ, середина);<br>
+        ....в) Колода "Бито", куда убираются карты после успешного отражения атаки одной из сторон (правая сторона,
+        середина);<br>
+        ....г) Кнопка конца хода (правая сторона, внизу);<br>
+        ....д) Показатель, чей ход (правая сторона, вверху);<br>
+        <br>
+        2) Как проходит игра:<br>
+        ....а) В начале игры и после каждого хода из колоды раздаются карты каждому участнику пока у них меньше, чем
+        шесть карт,или пока в колоде не закончатся карты;<br>
+        ....б) Первый ход распределяется случайно, дальше очерёдность идёт по очереди. Очередь может быть сохранена за
+        участником, если его оппонент не смог отразить атаку;<br>
+        ....в) Атака происходит следующим образом: <br>
+        ........I ) Участник выкладывает на доску карты одной "стоимости" в цифрах без учёта масти, затем завершает
+        ход;<br>
+        ........II ) Если оппонент отбился, то атакующий может "подкинуть" любые карты из своей колоды той же
+        "стоимости", что и карты на доске;<br>
+        ........III ) Если оппонент не отбился, то он забирает себе все карты с доски и следующий ход остаётся за
+        нападающим;<br>
+        ........IV ) Если оппонент отбился и вам нечего "подкинуть", то карты уходят в "Бито", а следующий ход делает
+        обороняющийся;<br>
+        ........V ) Одновременно на доске может находится не более 6 атакующих карт;<br>
+        <br>
+        3) Условия победы: У участника не остаётся карт
+    </p>
 
-<p id = "player_cards">
-<img class="player_card_1" src="images/card_reverse.png" alt="Карта игрока 1">
-<img class="player_card_2" src="images/card_reverse.png" alt="Карта игрока 2">
-<img class="player_card_3" src="images/card_reverse.png" alt="Карта игрока 3">
-<img class="player_card_4" src="images/card_reverse.png" alt="Карта игрока 4">
-<img class="player_card_5" src="images/card_reverse.png" alt="Карта игрока 5">
-<img class="player_card_6" src="images/card_reverse.png" alt="Карта игрока 6">
-</p>
-<p id = "enemy_cards">
-<img class="enemy_card_1" src="images/card_reverse.png" alt="Карта противника 1">
-<img class="enemy_card_2" src="images/card_reverse.png" alt="Карта противника 2">
-<img class="enemy_card_3" src="images/card_reverse.png" alt="Карта противника 3">
-<img class="enemy_card_4" src="images/card_reverse.png" alt="Карта противника 4">
-<img class="enemy_card_5" src="images/card_reverse.png" alt="Карта противника 5">
-<img class="enemy_card_6" src="images/card_reverse.png" alt="Карта противника 6">
-</p>
-<p id = "field_cards">
-<img class="field_card_1" src="images/card_reverse.png" alt="Карта поля 1">
-<img class="field_card_2" src="images/card_reverse.png" alt="Карта поля 2">
-<img class="field_card_3" src="images/card_reverse.png" alt="Карта поля 3">
-<img class="field_card_4" src="images/card_reverse.png" alt="Карта поля 4">
-<img class="field_card_5" src="images/card_reverse.png" alt="Карта поля 5">
-<img class="field_card_6" src="images/card_reverse.png" alt="Карта поля 6">
-</p>
-<p id = "field_cards_level_2">
-<img class="field_card_11" src="images/card_reverse.png" alt="Карта поля 11">
-<img class="field_card_21" src="images/card_reverse.png" alt="Карта поля 21">
-<img class="field_card_31" src="images/card_reverse.png" alt="Карта поля 31">
-<img class="field_card_41" src="images/card_reverse.png" alt="Карта поля 41">
-<img class="field_card_51" src="images/card_reverse.png" alt="Карта поля 51">
-<img class="field_card_61" src="images/card_reverse.png" alt="Карта поля 61">
-</p>
-<img class="bito_card" src="images/card_reverse.png" alt="Бито">
-<p class="who_move">Ход игрока</p>
+    <script src="formation_deck.js"></script>
 
-<button class="button">Завершить ход</button>
+    <p id="player_cards">
+        <img class="player_card_1" src="images/card_reverse.png" alt="Карта игрока 1">
+        <img class="player_card_2" src="images/card_reverse.png" alt="Карта игрока 2">
+        <img class="player_card_3" src="images/card_reverse.png" alt="Карта игрока 3">
+        <img class="player_card_4" src="images/card_reverse.png" alt="Карта игрока 4">
+        <img class="player_card_5" src="images/card_reverse.png" alt="Карта игрока 5">
+        <img class="player_card_6" src="images/card_reverse.png" alt="Карта игрока 6">
+    </p>
+    <p id="enemy_cards">
+        <img class="enemy_card_1" src="images/card_reverse.png" alt="Карта противника 1">
+        <img class="enemy_card_2" src="images/card_reverse.png" alt="Карта противника 2">
+        <img class="enemy_card_3" src="images/card_reverse.png" alt="Карта противника 3">
+        <img class="enemy_card_4" src="images/card_reverse.png" alt="Карта противника 4">
+        <img class="enemy_card_5" src="images/card_reverse.png" alt="Карта противника 5">
+        <img class="enemy_card_6" src="images/card_reverse.png" alt="Карта противника 6">
+    </p>
+    <p id="field_cards">
+        <img class="field_card_1" src="images/card_reverse.png" alt="Карта поля 1">
+        <img class="field_card_2" src="images/card_reverse.png" alt="Карта поля 2">
+        <img class="field_card_3" src="images/card_reverse.png" alt="Карта поля 3">
+        <img class="field_card_4" src="images/card_reverse.png" alt="Карта поля 4">
+        <img class="field_card_5" src="images/card_reverse.png" alt="Карта поля 5">
+        <img class="field_card_6" src="images/card_reverse.png" alt="Карта поля 6">
+    </p>
+    <p id="field_cards_level_2">
+        <img class="field_card_11" src="images/card_reverse.png" alt="Карта поля 11">
+        <img class="field_card_21" src="images/card_reverse.png" alt="Карта поля 21">
+        <img class="field_card_31" src="images/card_reverse.png" alt="Карта поля 31">
+        <img class="field_card_41" src="images/card_reverse.png" alt="Карта поля 41">
+        <img class="field_card_51" src="images/card_reverse.png" alt="Карта поля 51">
+        <img class="field_card_61" src="images/card_reverse.png" alt="Карта поля 61">
+    </p>
+    <img class="bito_card" src="images/card_reverse.png" alt="Бито">
+    <p class="who_move">Ход игрока</p>
 
-<script src="get_events_attack.js"></script>
-<script src="get_events_defense.js"></script>
-<script src="functions.js"></script>
-<script src="card_distribution.js"></script>
+    <button class="button">Завершить ход</button>
+
+    <script src="get_events_attack.js"></script>
+    <script src="get_events_defense.js"></script>
+    <script src="functions.js"></script>
+    <script src="card_distribution.js"></script>
 </body>
-

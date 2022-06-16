@@ -1,3 +1,30 @@
+function change_deck_counter() { // Изменение счётчика оставшихся в колоде карт
+    let counter = document.querySelector('p.deck_counter');
+    let count_cards = 36 - index_deck;
+    if ((count_cards>20 || count_cards <10) && count_cards%10 === 1) counter.textContent = `${count_cards} карта`;
+    else if ((count_cards>20 || count_cards <10) && count_cards%10 < 5 &&  count_cards%10 > 1) counter.textContent = `${count_cards} карты`;
+    else counter.textContent = `${count_cards} карт`;
+}
+
+function get_winner(winner) {  //  Определение противника
+    document.location.href = "#zatemnenie_winner";
+    document.querySelector('p.who_winner').textContent = winner;
+}
+
+function change_display_player_cards() { // присваивает "style.display ='none'" всем картам игрока с opacity = 0 и наоборот
+    for (let i = 1; i < 36; i++) {
+        player_card = document.querySelector(`img.player_card_${i}`);
+        if (player_card === null) continue;
+        if (player_card.style.opacity !== "1") player_card.style.display = 'none';
+        else if (player_card.style.opacity === "1") player_card.style.display = null;
+    }
+}
+
+function check_colode() {
+    if (index_deck === 35) document.querySelector('img.deck').style.display ='none'; /// !!! Добавил исчезновение колоды и козыря с доски
+    if (index_deck === 36) document.querySelector('img.trump_card').style.display ='none';
+}
+
 function location_cards(player_or_enemy) {
 
     let count;
@@ -147,6 +174,7 @@ function new_cards_enemy_from_table(is_player) {
                 break
             } else if (card.style.opacity === '0') {
                 card.style.opacity = '1';
+                //card.style.display = null; // !!! Добавиил для избавления от бага в конце игры (пока оставлю в виде комментария)
                 max_cards++;
                 break
             }
@@ -207,6 +235,8 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
 
     card_distribution();
 
+    //if (document.getElementById('okno_winner').style.display !== null) return; // !!! Проверка на окончание игры
+
     card_on_field_2_level = [];
     card_on_field = [];
     table_current = [];
@@ -256,6 +286,8 @@ function good_for_enemy(is_attack, is_player_takes) { // хорошее отби
     redefinition_styles(false);
 
     card_distribution();
+
+    //if (document.getElementById('okno_winner').style.display !== null) return; // !!! Проверка на окончание игры
 
     card_on_field_2_level = [];
     card_on_field = [];

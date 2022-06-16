@@ -1,12 +1,10 @@
-
-
-
 function move_player(event) {
     let id = event.target.id;
 
     let numbers_on_table = []
 
     if (document.querySelector(`img.${event.target.className}`).style.opacity === '0') return; // чтобы не выбирать дважды одну карту
+    if (card_on_field.length - card_on_field_2_level.length === enemy_info_split.length) return; // чтобы игрок не мог добавить на поле карь больше, чем есть у противника
 
     // Нужно добавить то, что карт можно больше выбирать при "подкидывании"
     card_on_field.forEach(function (card) { //Чтобы были только одного ранга карты
@@ -23,6 +21,7 @@ function move_player(event) {
             if (field_card.style.opacity === "0" || field_card.style.opacity === '') {
                 field_card.src = event.target.currentSrc;
                 field_card.style.opacity = "1";
+                field_card.id = id; // !!! Добавил добавление id
                 card_on_field.push(id);
                 document.querySelector(`img.${event.target.className}`).style.opacity = '0';
                 document.querySelector(`img.${event.target.className}`).style.zIndex = '0';
@@ -60,6 +59,8 @@ function move_field(event) {
 
 
 function end_turn_attack() {
+
+    if (card_on_field.length == 0) return // !!! Добавил проверку на наличие карт на доске
 
     console.log('attack')
 
@@ -146,6 +147,7 @@ function end_turn_attack() {
     }
 
     if (enemy_pass_good) {
+        document.querySelector('img.bito_card').style.opacity = '1';
         good_for_enemy(false,true)
         return;
     }

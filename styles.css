@@ -52,7 +52,19 @@ html {
     border: 1px solid black;
 }
 
-#zatemnenie {
+.deck_counter {
+    position: absolute;
+    width: 115px;
+    top: 35%;
+    left: 36px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 8px;
+    z-index: 1;
+}
+
+#zatemnenie_menu {
     background: rgba(102, 102, 102, 0.5);
     width: 100%;
     height: 100vh;
@@ -63,7 +75,18 @@ html {
     z-index: 3;
 }
 
-#okno {
+#zatemnenie_winner {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 3;
+}
+
+#okno_menu {
     width: 150px;
     height: 130px;
     text-align: center;
@@ -81,7 +104,29 @@ html {
     z-index: 3;
 }
 
-#zatemnenie:target {
+#okno_winner {
+    width: 150px;
+    height: 130px;
+    text-align: center;
+    padding: 15px;
+    border: 3px solid #0000cc;
+    border-radius: 10px;
+    color: #0000cc;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: #fff;
+    z-index: 3;
+}
+
+#zatemnenie_menu:target {
+    display: block;
+}
+
+#zatemnenie_winner:target {
     display: block;
 }
 

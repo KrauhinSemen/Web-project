@@ -13,6 +13,7 @@ function open_rules() {
 }
 
 function do_reset() {
+    do_close();
     location.reload();
 }
 
@@ -41,13 +42,18 @@ console.log(`Расположение карт : |${cards.join(' ')}|`);
 
 let rules = document.querySelector('button.button_rules');
 let text = document.querySelector('p.text_rules');
-let reset = document.querySelector('button.reset');
+//let reset = document.querySelector('button.reset');
 let close_button = document.querySelector('button.close');
+document.querySelectorAll('button.reset').forEach( function(reset) {
+    reset.addEventListener('click', do_reset);
+});
 let exit = document.querySelector('button.exit');
 document.addEventListener('keydown', function(event) {
-    if (event.code == 'Escape') document.location.href = "#zatemnenie";
+    if (event.code == 'Escape') document.location.href = "#zatemnenie_menu";
   });
 rules.addEventListener('click', open_rules)
 text.addEventListener('click', delete_rules);
-reset.addEventListener('click', do_reset)
+//reset.addEventListener('click', do_reset)
 close_button.addEventListener('click', do_close);
+
+document.location.replace('#');
