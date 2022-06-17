@@ -22,10 +22,10 @@ function change_display_player_cards() { // присваивает "style.displa
 
 function check_colode() {
     let count_cards = 36 - index_deck;
-    if (count_cards <= 6) document.querySelector('img.deck').src = 'images/colode_1_card.png';
-    else if (count_cards <= 12) document.querySelector('img.deck').src = 'images/colode_2_card.png';
-    else if (count_cards <= 18) document.querySelector('img.deck').src = 'images/colode_3_card.png';
-    else if (count_cards <= 24) document.querySelector('img.deck').src = 'images/colode_4_card.png';
+    if (count_cards <= 6) document.querySelector('img.deck').src = 'images/coloda.png';
+    else if (count_cards <= 12) document.querySelector('img.deck').src = 'images/coloda.png';
+    else if (count_cards <= 18) document.querySelector('img.deck').src = 'images/coloda.png';
+    else if (count_cards <= 24) document.querySelector('img.deck').src = 'images/coloda.png';
     if (index_deck === 35) document.querySelector('img.deck').style.display ='none'; /// !!! Добавил исчезновение колоды и козыря с доски
     if (index_deck === 36) document.querySelector('img.trump_card').style.display ='none';
 }
