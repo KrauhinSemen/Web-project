@@ -426,7 +426,9 @@ html {
 
 .bito_card {
     position: absolute;
-    right: 8px;
+    height: 165px;
+    width: 115px;
+    right: 18px;
     top: 40%;
     opacity: 0;
 }
