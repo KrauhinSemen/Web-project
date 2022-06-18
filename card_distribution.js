@@ -91,7 +91,7 @@ if (coin === 0) {
         field_card.addEventListener('click', move_field);
     }
 
-    let button = document.querySelector("a.button");
+    let button = document.querySelector("button.button");
     button.addEventListener('click', end_turn_attack)
 } else {
     console.log('Противник начинает первый')
@@ -103,7 +103,7 @@ if (coin === 0) {
         field_card.addEventListener('click', move_player_current_card);
     }
 
-    let button = document.querySelector("a.button");
+    let button = document.querySelector("button.button");
     button.addEventListener('click', end_turn_defense);
 
     enemy_move();

@@ -290,7 +290,7 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
         i++;
     }
 
-    let button = document.querySelector("a.button");
+    let button = document.querySelector("button.button");
     button.removeEventListener('click', end_turn_defense);
     button.addEventListener('click', end_turn_attack)
 
@@ -338,7 +338,7 @@ function good_for_enemy(is_attack, is_player_takes) { // хорошее отби
         i++;
     }
 
-    let button = document.querySelector("a.button");
+    let button = document.querySelector("button.button");
     button.removeEventListener('click', end_turn_attack);
     button.addEventListener('click', end_turn_defense);
 
