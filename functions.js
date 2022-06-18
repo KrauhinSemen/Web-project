@@ -13,7 +13,7 @@ function get_winner(winner) {  //  Определение противника
 
 function change_display_player_cards() { // присваивает "style.display ='none'" всем картам игрока с opacity = 0 и наоборот
     for (let i = 1; i < 36; i++) {
-        player_card = document.querySelector(`img.player_card_${i}`);
+        let player_card = document.querySelector(`img.player_card_${i}`);
         if (player_card === null) continue;
         if (player_card.style.opacity !== "1") player_card.style.display = 'none';
         else if (player_card.style.opacity === "1") player_card.style.display = null;

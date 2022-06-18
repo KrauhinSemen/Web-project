@@ -6,75 +6,74 @@ function enemy_move() {
     let count_free_fields = 6 - Math.max(card_on_field.length, (6 - player_info_split.length)); // количество свободных карт поля
     if (count_free_fields === 0) return;
 
-    let values_field = []
-    for (let i=0;i<card_on_field.length; i++) {
+    let values_on_field = []
+    for (let i = 0; i < card_on_field.length; i++) {
         let card_value_1_level = Number(card_on_field[i].split('-')[0]);
         let card_value_2_level = Number(card_on_field_2_level[i].split('-')[0]);
-        if (values_field.indexOf(card_value_1_level) === -1) values_field[values_field.length] = card_value_1_level;
-        if (values_field.indexOf(card_value_2_level) === -1) values_field[values_field.length] = card_value_2_level;
+        if (values_on_field.indexOf(card_value_1_level) === -1) values_on_field[values_on_field.length] = card_value_1_level;
+        if (values_on_field.indexOf(card_value_2_level) === -1) values_on_field[values_on_field.length] = card_value_2_level;
     }
 
-    let enem_cards = enemy_info_split;
     let min_trump = ''; // минимальный козырь, приоритет 3
-    let par_val = []; // парные карты без козыря, приоритет 1
-    let count_par_card = []
+    let multi_values = []; // парные карты без козыря, приоритет 1
+    let count_multi_pars = []
     let min_card = ''; // минимальная карта, приоритет 2
     let answer = [];
 
     // Заполнение информации о картах игрока
     let trump = document.querySelector('img.trump_card').src.split('/').pop().split('-')[1].substring(0, 1);
-    for (let i = 0; i < enem_cards.length; i++) {
-        let card_split = enem_cards[i].split('-');
+    for (let i = 0; i < enemy_info_split.length; i++) {
+        let card_split = enemy_info_split[i].split('-');
         if (card_split[1] === trump) {
             if (min_trump === '' || Number(card_split[0]) < Number(min_trump.split('-')[0])) {
-                min_trump = enem_cards[i];
+                min_trump = enemy_info_split[i];
             }
             continue;
         }
 
         if (min_card === '' || Number(card_split[0]) < Number(min_card.split('-')[0])) {
-            min_card = enem_cards[i];
+            min_card = enemy_info_split[i];
         }
 
-        let card_val = Number(card_split[0]);
-        if (par_val.indexOf(card_val) === -1) {
-            par_val[par_val.length] = card_val;
-            count_par_card[count_par_card.length] = 1;
+        let card_value = Number(card_split[0]);
+        if (multi_values.indexOf(card_value) === -1) {
+            multi_values[multi_values.length] = card_value;
+            count_multi_pars[count_multi_pars.length] = 1;
             continue;
         }
-        for (let j = 0; j < par_val.length; j++) {
-            if (par_val[j] === card_val) {
-                count_par_card[j] += 1;
+        for (let j = 0; j < multi_values.length; j++) {
+            if (multi_values[j] === card_value) {
+                count_multi_pars[j] += 1;
                 break;
             }
         }
     }
 
     // Ответ игроку
-    if (min_card === '' && (values_field.indexOf(Number(min_trump.split("-")[0])) !== -1 || values_field.length === 0)) {
+    if (min_card === '' && (values_on_field.indexOf(Number(min_trump.split("-")[0])) !== -1 || values_on_field.length === 0)) {
         answer[0] = min_trump
         // Не знаю, возможен ли вариант с отсутствием карт...
     }
     else {
-        for (let i = 0; i < par_val.length; i++) {
-            if (((par_val[i] <= 10 && par_val[i] - Number(min_card.split('-')[0]) <= 3) || par_val[i] - Number(min_card.split('-')[0]) <= 2)
-                && count_par_card[i] > 1 && count_par_card[i] + answer.length<=count_free_fields
-                && (values_field.indexOf(par_val[i]) !== -1 || (values_field.length === 0 && answer.length === 0))) {  // Я примерно так играю в общем случае // добавил "+ answer.length", "&& answer.length === 0"
-                if (answer.length === 0 || Number(answer[0].split('-')[0]) > par_val[i]) { // изменил на ">" 
+        for (let i = 0; i < multi_values.length; i++) {
+            if (((multi_values[i] <= 10 && multi_values[i] - Number(min_card.split('-')[0]) <= 3) || multi_values[i] - Number(min_card.split('-')[0]) <= 2)
+                && count_multi_pars[i] > 1 && count_multi_pars[i] + answer.length <= count_free_fields
+                && (values_on_field.indexOf(multi_values[i]) !== -1 || (values_on_field.length === 0 && answer.length === 0))) {  // Я примерно так играю в общем случае // добавил "+ answer.length", "&& answer.length === 0"
+                if (answer.length === 0 || Number(answer[0].split('-')[0]) > multi_values[i]) { // изменил на ">" 
                     answer = []; // !!! Добавил обнуление ответа
-                    for (let j = 0; j < enem_cards.length; j++) {
-                        if (Number(enem_cards[j].split('-')[0]) === par_val[i] && enem_cards[j].split('-')[1] != trump) { // добавил невозможность добавления козыря
-                            answer[answer.length] = enem_cards[j];
+                    for (let j = 0; j < enemy_info_split.length; j++) {
+                        if (Number(enemy_info_split[j].split('-')[0]) === multi_values[i] && enemy_info_split[j].split('-')[1] != trump) { // добавил невозможность добавления козыря
+                            answer[answer.length] = enemy_info_split[j];
                         }
                     }
                 }
             }
         }
-        if (answer.length === 0  && (values_field.indexOf(Number(min_card.split("-")[0])) !== -1 || values_field.length === 0)) answer[0] = min_card;
+        if (answer.length === 0 && (values_on_field.indexOf(Number(min_card.split("-")[0])) !== -1 || values_on_field.length === 0)) answer[0] = min_card;
     }
 
     // Заполнение информации о картах на поле и в колоде противника
-    for (let i=0; i< answer.length; i++) {
+    for (let i = 0; i < answer.length; i++) {
         card_on_field.push(answer[i])
 
         let enemy_card = document.getElementById(answer[i]);
@@ -82,21 +81,21 @@ function enemy_move() {
     }
 
     let new_enem_cards = [];
-    for (let i=0; i<enem_cards.length;i++) {
-        if (answer.indexOf(enem_cards[i]) === -1) new_enem_cards[new_enem_cards.length] = enem_cards[i];
+    for (let i = 0; i < enemy_info_split.length; i++) {
+        if (answer.indexOf(enemy_info_split[i]) === -1) new_enem_cards[new_enem_cards.length] = enemy_info_split[i];
     }
 
     enemy_info_split = new_enem_cards;
     document.querySelector("p.enemy_info").textContent = enemy_info_split.join(' ');
 
-    console.log("enem_cards", enem_cards);
+    console.log("enem_cards", enemy_info_split);
     console.log("min_card", min_card);
     console.log("min_trump", min_trump);
-    console.log("par_val", par_val);
-    console.log("count_par_card", count_par_card);
+    console.log("par_val", multi_values);
+    console.log("count_par_card", count_multi_pars);
     console.log("answer", answer);
     // Расстановка карт на поле
-    for (let i=1; i<7; i++ ) {
+    for (let i = 1; i < 7; i++) {
         let fiel_card = document.querySelector(`img.field_card_${i}`);
         if (fiel_card.style.opacity === '0' || fiel_card.style.opacity === '') {
             fiel_card.style.opacity = '1';
@@ -160,7 +159,7 @@ function end_turn_defense() {
 function select_current_card(event) {
 
     if (current_card !== null) {
-        current_card.style.top  = '75%';
+        current_card.style.top = '75%';
     }
 
     current_card = event.target;
@@ -212,7 +211,7 @@ function move_field_current_card(event) {
                 document.querySelector(`img.${card.className}`).style.opacity = "0";
                 document.querySelector(`img.${card.className}`).style.zIndex = "0";
 
-                document.querySelector(`img.${card.className.substring(0, card.className.length-1)}`).style.zIndex = "1";
+                document.querySelector(`img.${card.className.substring(0, card.className.length - 1)}`).style.zIndex = "1";
 
                 break;
             }
