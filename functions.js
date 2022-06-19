@@ -185,7 +185,6 @@ function new_cards_enemy_from_table(is_player) {
 
                 new_card.style.position = 'absolute';
                 new_card.style.opacity = '1';
-                new_card.style.border = '1px solid black'
                 new_card.id = card_field;
 
                 if (is_player)
