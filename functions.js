@@ -26,7 +26,7 @@ function check_colode() {
     else if (count_cards <= 12) document.querySelector('img.deck').src = 'images/coloda.png';
     else if (count_cards <= 18) document.querySelector('img.deck').src = 'images/coloda.png';
     else if (count_cards <= 24) document.querySelector('img.deck').src = 'images/coloda.png';
-    if (index_deck === 35) document.querySelector('img.deck').style.display ='none'; /// !!! Добавил исчезновение колоды и козыря с доски
+    if (index_deck === 35) document.querySelector('img.deck').style.display ='none';
     if (index_deck === 36) document.querySelector('img.trump_card').style.display ='none';
 }
 
@@ -196,7 +196,6 @@ function new_cards_enemy_from_table(is_player) {
                 break
             } else if (card.style.opacity === '0') {
                 card.style.opacity = '1';
-                //card.style.display = null; // !!! Добавиил для избавления от бага в конце игры (пока оставлю в виде комментария)
                 max_cards++;
                 break
             }
@@ -257,8 +256,6 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
 
     card_distribution();
 
-    //if (document.getElementById('okno_winner').style.display !== null) return; // !!! Проверка на окончание игры
-
     card_on_field_2_level = [];
     card_on_field = [];
     table_current = [];
@@ -309,7 +306,6 @@ function good_for_enemy(is_attack, is_player_takes) { // хорошее отби
 
     card_distribution();
 
-    //if (document.getElementById('okno_winner').style.display !== null) return; // !!! Проверка на окончание игры
 
     card_on_field_2_level = [];
     card_on_field = [];
@@ -322,7 +318,7 @@ function good_for_enemy(is_attack, is_player_takes) { // хорошее отби
         let player_card = document.querySelector(`img.player_card_${i}`);
         let field_card = document.querySelector(`img.field_card_${i}`);
 
-        if (player_card !== null) {// Разве здесь не может быть так, чтобы выполнялось и то, и то условие? Вроде бы здесь некоторые карты поля могут не получить событие возвращения в коллоду
+        if (player_card !== null) {
             player_card.removeEventListener('click', move_player);
             player_card.addEventListener('click', select_current_card);
         } else {

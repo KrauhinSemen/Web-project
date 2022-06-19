@@ -55,7 +55,7 @@ function card_distribution() {
             return;
         }
         else if (enemy_info_split.length === 0 && player_info_split.length !== 0) {
-            get_winner('Победил Искуственный Интелект');
+            get_winner('Победил Искусственный Интеллект');
             return;
         }
         else if (enemy_info_split.length !== 0 && player_info_split.length === 0) {

@@ -52,17 +52,16 @@ function enemy_move() {
     // Ответ игроку
     if (min_card === '' && (values_on_field.indexOf(Number(min_trump.split("-")[0])) !== -1 || values_on_field.length === 0)) {
         answer[0] = min_trump
-        // Не знаю, возможен ли вариант с отсутствием карт...
     }
     else {
         for (let i = 0; i < multi_values.length; i++) {
             if (((multi_values[i] <= 10 && multi_values[i] - Number(min_card.split('-')[0]) <= 3) || multi_values[i] - Number(min_card.split('-')[0]) <= 2)
                 && count_multi_pars[i] > 1 && count_multi_pars[i] + answer.length <= count_free_fields
-                && (values_on_field.indexOf(multi_values[i]) !== -1 || (values_on_field.length === 0 && answer.length === 0))) {  // Я примерно так играю в общем случае // добавил "+ answer.length", "&& answer.length === 0"
-                if (answer.length === 0 || Number(answer[0].split('-')[0]) > multi_values[i]) { // изменил на ">" 
-                    answer = []; // !!! Добавил обнуление ответа
+                && (values_on_field.indexOf(multi_values[i]) !== -1 || (values_on_field.length === 0 && answer.length === 0))) {
+                if (answer.length === 0 || Number(answer[0].split('-')[0]) > multi_values[i]) {
+                    answer = [];
                     for (let j = 0; j < enemy_info_split.length; j++) {
-                        if (Number(enemy_info_split[j].split('-')[0]) === multi_values[i] && enemy_info_split[j].split('-')[1] !== trump) { // добавил невозможность добавления козыря
+                        if (Number(enemy_info_split[j].split('-')[0]) === multi_values[i] && enemy_info_split[j].split('-')[1] !== trump) {
                             answer[answer.length] = enemy_info_split[j];
                         }
                     }
@@ -94,6 +93,7 @@ function enemy_move() {
     console.log("par_val", multi_values);
     console.log("count_par_card", count_multi_pars);
     console.log("answer", answer);
+
     // Расстановка карт на поле
     for (let i = 1; i < 7; i++) {
         let fiel_card = document.querySelector(`img.field_card_${i}`);
@@ -110,7 +110,7 @@ function enemy_move() {
 function end_turn_defense() {
     console.log('defense')
 
-    if (current_card !== null) { // !!! Добавил скобочки
+    if (current_card !== null) {
         current_card.style.top = '75%';
         current_card.style.zIndex = '0';
     }
@@ -140,8 +140,6 @@ function end_turn_defense() {
         card_on_field.forEach(function (card_field) {
             enemy_info_split = enemy_info_split.filter(function (f) { return f !== card_field })
         })
-
-        //console.log(card_on_field_2_level, card_on_field)
 
         location_cards('player');
         location_cards('enemy');
@@ -203,7 +201,7 @@ function move_field_current_card(event) {
                 player_card.style.display = null;
                 player_card.style.zIndex = "1"
 
-                for (let k = card_on_field.indexOf(card.id) + 1; k < card_on_field.length; k++) { // была проблема с тем, когда убираю не крайнюю правую карту
+                for (let k = card_on_field.indexOf(card.id) + 1; k < card_on_field.length; k++) {
                     card_on_field[k - 1] = card_on_field[k]
                 }
                 card_on_field_2_level.splice(card_on_field_2_level.length - 1, 1);
@@ -218,4 +216,3 @@ function move_field_current_card(event) {
         }
     }
 }
-

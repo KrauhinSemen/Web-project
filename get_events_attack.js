@@ -6,7 +6,7 @@ function move_player(event) {
     if (document.querySelector(`img.${event.target.className}`).style.opacity === '0') return; // чтобы не выбирать дважды одну карту
     if (card_on_field.length - card_on_field_2_level.length === enemy_info_split.length) return; // чтобы игрок не мог добавить на поле карь больше, чем есть у противника
 
-    // Нужно добавить то, что карт можно больше выбирать при "подкидывании"
+
     card_on_field.forEach(function (card) { //Чтобы были только одного ранга карты
         numbers_on_table.push(card.split('-')[0])
     });
@@ -21,7 +21,7 @@ function move_player(event) {
             if (field_card.style.opacity === "0" || field_card.style.opacity === '') {
                 field_card.src = event.target.currentSrc;
                 field_card.style.opacity = "1";
-                field_card.id = id; // !!! Добавил добавление id
+                field_card.id = id;
                 card_on_field.push(id);
                 document.querySelector(`img.${event.target.className}`).style.opacity = '0';
                 document.querySelector(`img.${event.target.className}`).style.zIndex = '0';
@@ -45,7 +45,7 @@ function move_field(event) {
             player_card.style.opacity = "1";
             player_card.style.zIndex = "1"
 
-            for (let k = card_on_field.indexOf(id) + 1; k < card_on_field.length; k++) { // была проблема с тем, когда убираю не крайнюю правую карту
+            for (let k = card_on_field.indexOf(id) + 1; k < card_on_field.length; k++) {
                 card_on_field[k - 1] = card_on_field[k]
             }
             card_on_field.splice(card_on_field.length - 1, 1);
@@ -63,7 +63,7 @@ function move_field(event) {
 
 function end_turn_attack() {
 
-    if (card_on_field.length === 0) return // !!! Добавил проверку на наличие карт на доске
+    if (card_on_field.length === 0) return
 
     console.log('attack')
 
