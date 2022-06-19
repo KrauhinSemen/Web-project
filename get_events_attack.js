@@ -6,7 +6,6 @@ function move_player(event) {
     if (document.querySelector(`img.${event.target.className}`).style.opacity === '0') return; // чтобы не выбирать дважды одну карту
     if (card_on_field.length - card_on_field_2_level.length === enemy_info_split.length) return; // чтобы игрок не мог добавить на поле карь больше, чем есть у противника
 
-
     card_on_field.forEach(function (card) { //Чтобы были только одного ранга карты
         numbers_on_table.push(card.split('-')[0])
     });
