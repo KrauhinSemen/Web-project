@@ -38,14 +38,14 @@ document.querySelector('p.deck_info').textContent = cards.join(' ');
 
 console.log(`Расположение карт : |${cards.join(' ')}|`);
 
-let rules = document.querySelector('button.button_rules').addEventListener('click', open_rules);
-let text = document.querySelector('p.text_rules').addEventListener('click', delete_rules);
-let close_button = document.querySelector('button.close').addEventListener('click', do_close);
+document.querySelector('button.button_rules').addEventListener('click', open_rules);
+document.querySelector('p.text_rules').addEventListener('click', delete_rules);
+document.querySelector('button.close').addEventListener('click', do_close);
 document.querySelectorAll('button.reset').forEach( function(reset) {
     reset.addEventListener('click', do_reset);
 });
 document.addEventListener('keydown', function(event) {
-    if (event.code == 'Escape') document.location.href = "#zatemnenie_menu";
+    if (event.code === 'Escape') document.location.href = "#zatemnenie_menu";
   });
 
 document.location.replace('#');

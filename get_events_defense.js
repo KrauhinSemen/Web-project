@@ -62,7 +62,7 @@ function enemy_move() {
                 if (answer.length === 0 || Number(answer[0].split('-')[0]) > multi_values[i]) { // изменил на ">" 
                     answer = []; // !!! Добавил обнуление ответа
                     for (let j = 0; j < enemy_info_split.length; j++) {
-                        if (Number(enemy_info_split[j].split('-')[0]) === multi_values[i] && enemy_info_split[j].split('-')[1] != trump) { // добавил невозможность добавления козыря
+                        if (Number(enemy_info_split[j].split('-')[0]) === multi_values[i] && enemy_info_split[j].split('-')[1] !== trump) { // добавил невозможность добавления козыря
                             answer[answer.length] = enemy_info_split[j];
                         }
                     }
