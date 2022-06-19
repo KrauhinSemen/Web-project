@@ -245,7 +245,7 @@ function good_for_player(is_attack, is_player_takes) { // хорошее отб�
 
     let who_move = document.querySelector('p.who_move');
     who_move.textContent = 'Ход игрока';
-    who_move.style.color = 'blue';
+    who_move.style.color = 'yellowgreen';
 
     clear_table();
 
